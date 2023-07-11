@@ -416,7 +416,7 @@ public class ClienteCadastro extends javax.swing.JInternalFrame {
 
         if (jTNome.getText().isEmpty()) {
             jListCliente.setVisible(false);
-        } else if (tam.length() > 5) {
+        } else if (tam.length() > 3) {
             ListaPesquisa();
         }
     }//GEN-LAST:event_jTNomeKeyPressed
@@ -559,7 +559,7 @@ public class ClienteCadastro extends javax.swing.JInternalFrame {
 
     private void carregarFormulario(Rm_Cliente cliente) {
         jTNome.setText(cliente.getNome());
-        jTCpf.setText(new Validacao().formatarCpf(colaborador.getCpf()));
+        jTCpf.setText(new Validacao().formatarCpf(cliente.getCpf()));
         jTRg.setText(cliente.getRg());
         jTCelular.setText(cliente.getTelefone());
         jTRecado.setText(cliente.getTelefoneRecado());

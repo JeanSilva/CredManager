@@ -28,8 +28,11 @@ import javax.persistence.Temporal;
  */
 @Entity
   @NamedQueries({ 
-    @NamedQuery(name = "emprestimo.BuscarPorCliente", query = "SELECT e FROM Rm_Emprestimo e WHERE e.cliente.id = :clienteId AND e.status = 'ABERTO' ")
-})
+    @NamedQuery(name = "emprestimo.BuscarPorCliente", query = "SELECT e FROM Rm_Emprestimo e WHERE e.cliente.id = :clienteId AND e.status = 'ABERTO' "),
+    @NamedQuery(name = "emprestimo.BuscarPorColaborador", query = "SELECT e FROM Rm_Emprestimo e WHERE e.colaborador.id = :colaboradorId"),
+    @NamedQuery(name = "emprestimo.BuscarPorColaboradorEPeriodo", query = "SELECT e FROM Rm_Emprestimo e WHERE e.colaborador.id = :colaboradorId AND e.dataLacamento BETWEEN :dataInicial AND :dataFinal")
+ 
+  })
 public class Rm_Emprestimo implements Serializable {
 
     /**

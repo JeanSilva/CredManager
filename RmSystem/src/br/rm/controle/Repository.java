@@ -9,6 +9,7 @@ import br.rm.modelo.Rm_Cliente;
 import br.rm.modelo.Rm_Colaborador;
 import br.rm.modelo.Rm_Emprestimo;
 import br.rm.modelo.Rm_Parcela;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,29 +59,28 @@ public class Repository {
         }
     }
 
-   public void cadastrarEmprestimo(Rm_Emprestimo emprestimo) {
-    try {
-        if (!entidade.getTransaction().isActive()) {
-            entidade.getTransaction().begin();
+    public void cadastrarEmprestimo(Rm_Emprestimo emprestimo) {
+        try {
+            if (!entidade.getTransaction().isActive()) {
+                entidade.getTransaction().begin();
+            }
+            entidade.persist(emprestimo);
+            entidade.getTransaction().commit();
+        } catch (RuntimeException ex) {
+            if (entidade.getTransaction().isActive()) {
+                entidade.getTransaction().rollback();
+            }
+            throw new RuntimeException(ex);
         }
-        entidade.persist(emprestimo);
-        entidade.getTransaction().commit();
-    } catch (RuntimeException ex) {
-        if (entidade.getTransaction().isActive()) {
-            entidade.getTransaction().rollback();
-        }
-        throw new RuntimeException(ex);
     }
-}
-
 
     public void atualizarParcela(List<Rm_Parcela> parcelas) {
         try {
-            
-            for(Rm_Parcela p : parcelas){
-            entidade.getTransaction().begin();
-            entidade.merge(p);
-            entidade.getTransaction().commit();
+
+            for (Rm_Parcela p : parcelas) {
+                entidade.getTransaction().begin();
+                entidade.merge(p);
+                entidade.getTransaction().commit();
             }
 
         } catch (RuntimeException ex) {
@@ -89,7 +89,6 @@ public class Repository {
         }
     }
 
-    
     /**
      * public void criarVenda(Venda venda) { try {
      * entidade.getTransaction().begin(); entidade.persist(venda);
@@ -118,10 +117,8 @@ public class Repository {
         try {
             TypedQuery<Rm_Cliente> query = entidade.createNamedQuery("cliente.buscarCpf", Rm_Cliente.class);
             query.setParameter("cpf", cpf);
-
             return query.getSingleResult();
         } catch (Exception e) {
-            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }
@@ -240,6 +237,7 @@ public class Repository {
         List<Rm_Colaborador> lista = query.getResultList();
         return lista;
     }
+
     /*
     public List<Produto> buscarDescricao(String descricao) {
         TypedQuery<Produto> query = entidade.createNamedQuery("produto.buscarDescricao", Produto.class);
@@ -478,31 +476,70 @@ public class Repository {
     
     }
      */
-
-    public List<Rm_Emprestimo>buscarEmprestimoPorCliente(Rm_Cliente cliente) {
-         TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorCliente", Rm_Emprestimo.class);
+    public List<Rm_Emprestimo> buscarEmprestimoPorCliente(Rm_Cliente cliente) {
+        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorCliente", Rm_Emprestimo.class);
         query.setParameter("clienteId", cliente.getId());
         List<Rm_Emprestimo> lista = query.getResultList();
         return lista;
-    
+
+    }
+
+    public List<Rm_Emprestimo> BuscarEmprestimoPorColaborador(Rm_Colaborador colaborador) {
+        try {
+            TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorColaborador", Rm_Emprestimo.class);
+            query.setParameter("colaboradorId", colaborador.getId());
+            List<Rm_Emprestimo> lista = query.getResultList();
+            if (lista.isEmpty()) {
+                return null;
+            }
+            return lista;
+
+        } catch (Exception e) {
+            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
+
     }
 
     public List<Rm_Parcela> buscarParcelasEmprestimo(Rm_Emprestimo emprestimo) {
-      TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarPorEmprestimo", Rm_Parcela.class);
+        TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarPorEmprestimo", Rm_Parcela.class);
         query.setParameter("emprestimoId", emprestimo.getId());
         List<Rm_Parcela> lista = query.getResultList();
-        return lista;   
-    
-    
+        return lista;
+
     }
-    
-    public List<Rm_Parcela> buscarParcelasAtrazada() {
-      TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarAtrazadas", Rm_Parcela.class);
+    public List<Rm_Parcela> BuscarTodasPorEmprestimo(Rm_Emprestimo emprestimo) {
+        TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarTodasPorEmprestimo", Rm_Parcela.class);
+        query.setParameter("emprestimoId", emprestimo.getId());
         List<Rm_Parcela> lista = query.getResultList();
-        return lista;   
-    
-    
+        return lista;
+
     }
 
- 
+    
+    
+    public List<Rm_Parcela> buscarParcelasAtrazada() {
+        TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarAtrazadas", Rm_Parcela.class);
+        List<Rm_Parcela> lista = query.getResultList();
+        return lista;
+
+    }
+
+    public List<Rm_Emprestimo> BuscarEmprestimoPorDataEColaborador(Rm_Colaborador colaborador, Date dateInicial, Date dateFinal) {
+        try {
+            TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorColaboradorEPeriodo", Rm_Emprestimo.class);
+            query.setParameter("colaboradorId", colaborador.getId());
+            query.setParameter("dataInicial", dateInicial);
+            query.setParameter("dataFinal", dateFinal);
+            List<Rm_Emprestimo> lista = query.getResultList();
+            if (lista.isEmpty()) {
+                return null;
+            }
+            return lista;
+        } catch (Exception e) {
+            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
+    }
+
 }

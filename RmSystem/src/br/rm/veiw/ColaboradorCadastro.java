@@ -357,7 +357,7 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
 
         if (jTNome.getText().isEmpty()) {
             jListColaborador.setVisible(false);
-        } else if (tam.length() > 5) {
+        } else if (tam.length() > 3) {
             ListaPesquisa();
         }
     }//GEN-LAST:event_jTNomeKeyPressed

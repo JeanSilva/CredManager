@@ -362,9 +362,8 @@ public class NovoEmprestimo extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(24, 24, 24))))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jListCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
+                            .addComponent(jListCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTCliente)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jCheckQuinzenal)
@@ -634,7 +633,7 @@ public class NovoEmprestimo extends javax.swing.JInternalFrame {
 
         if (jTCliente.getText().isEmpty()) {
             jListCliente.setVisible(false);
-        } else if (tam.length() > 5) {
+        } else if (tam.length() > 3) {
             ListaPesquisa("CLIENTE");
         }
     }//GEN-LAST:event_jTClienteKeyPressed
@@ -650,7 +649,7 @@ public class NovoEmprestimo extends javax.swing.JInternalFrame {
 
         if (jTCobrador.getText().isEmpty()) {
             jListCobrador.setVisible(false);
-        } else if (tam.length() > 5) {
+        } else if (tam.length() > 3) {
             ListaPesquisa("COLABORADOR");
         }
     }//GEN-LAST:event_jTCobradorKeyPressed

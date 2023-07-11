@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -99,14 +98,14 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
 
         jListCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jListCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jListCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jListCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jListCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jListClienteMouseClicked(evt);
             }
         });
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Empréstimos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Empréstimos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -114,18 +113,18 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPaneEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPaneEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPaneEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(jScrollPaneEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Parcelas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Parcelas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -140,7 +139,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(jSPParcelas, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                .addComponent(jSPParcelas, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                 .addGap(5, 5, 5))
         );
 
@@ -149,7 +148,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         jBSalvar.setForeground(new java.awt.Color(255, 255, 255));
         jBSalvar.setText("Baixar parcelas selecinadas");
         jBSalvar.setBorderPainted(false);
-        jBSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBSalvar.setFocusPainted(false);
         jBSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -170,35 +169,38 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jListCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 632, Short.MAX_VALUE)
-                        .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 9, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                                    .addComponent(jListCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jListCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jListCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addGap(20, 20, 20))
         );
 
         jInternalFrame1.setClosable(true);
@@ -215,7 +217,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
 
         jListCliente1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jListCliente1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jListCliente1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jListCliente1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jListCliente1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jListCliente1MouseClicked(evt);
@@ -265,7 +267,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         jBSalvar1.setForeground(new java.awt.Color(255, 255, 255));
         jBSalvar1.setText("Baixar Parcelas");
         jBSalvar1.setBorderPainted(false);
-        jBSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBSalvar1.setFocusPainted(false);
         jBSalvar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -337,26 +339,26 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(30, 30, 30)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 589, Short.MAX_VALUE)
+                    .addGap(0, 609, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 590, Short.MAX_VALUE)))
+                    .addGap(0, 609, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 291, Short.MAX_VALUE)
+                    .addGap(0, 355, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 291, Short.MAX_VALUE)))
+                    .addGap(0, 356, Short.MAX_VALUE)))
         );
 
         pack();
@@ -376,7 +378,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
 
         if (jTCliente.getText().isEmpty()) {
             jListCliente.setVisible(false);
-        } else if (tam.length() > 5) {
+        } else if (tam.length() > 3) {
             ListaPesquisa();
         }
     }//GEN-LAST:event_jTClienteKeyPressed
@@ -450,10 +452,10 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         try {
 
             ArrayList<JBeanTableColumn> columns = new ArrayList<>();
-            columns.add(new JBeanTableColumn("valorEmprestimo", "VALOR", true, false, 80, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
-            columns.add(new JBeanTableColumn("qtdParcelas", "PARCELAS", true, false, 80, null, null, null));
-            columns.add(new JBeanTableColumn("cliente.nome", "CLIENTE", true, false, 120, null, null, null));
-           
+            columns.add(new JBeanTableColumn("cliente.nome", "CLIENTE", true, false, 150, null, null, null));
+           columns.add(new JBeanTableColumn("valorEmprestimo", "VALOR", true, false, 150, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("qtdParcelas", "PARCELAS", true, false, 150, null, null, null));
+            
             this.jBTEmprestimos = new JBeanTable(Rm_Emprestimo.class, columns);
 
             this.jBTEmprestimos.addMouseListener(new MouseAdapter() {
@@ -508,14 +510,14 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         try {
 
             ArrayList<JBeanTableColumn> columns = new ArrayList<>();
-            columns.add(new JBeanTableColumn("numeroParcela", "Num.", true, false, 40, null, null, null));
-            columns.add(new JBeanTableColumn("status", "STATUS", true, false, 100, null, null, null));
-            columns.add(new JBeanTableColumn("dataFormatada", "VENCIMENTO", true, false, 100, null, null, null));
-            columns.add(new JBeanTableColumn("taxaJurosDiaria", "R$ TAXA DIÁRIA", true, false, 120, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
-            columns.add(new JBeanTableColumn("valorJurosDiario", "R$ JUROS DIARIO", true, false, 120, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
-            columns.add(new JBeanTableColumn("valor", "VALOR", true, false, 100, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
-            columns.add(new JBeanTableColumn("valorRecebido", "R$ PARCELA RECEBIDA", true, true, 170, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
-            columns.add(new JBeanTableColumn("valorJurosDiarioRecebido", "R$ JUROS RECEBIDO", true, true, 150, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("numeroParcela", "Num.", true, false, 60, null, null, null));
+            columns.add(new JBeanTableColumn("status", "STATUS", true, false, 110, null, null, null));
+            columns.add(new JBeanTableColumn("dataFormatada", "VENCIMENTO", true, false, 110, null, null, null));
+            columns.add(new JBeanTableColumn("taxaJurosDiaria", "R$ TAXA DIÁRIA", true, false, 130, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("valorJurosDiario", "R$ JUROS DIARIO", true, false, 140, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("valor", "VALOR", true, false, 120, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("valorRecebido", "R$ PARCELA RECEBIDA", true, true, 190, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("valorJurosDiarioRecebido", "R$ JUROS RECEBIDO", true, true, 190, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
 
             this.jBTParcelas = new JBeanTable(Rm_Parcela.class, columns);
 

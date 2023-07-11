@@ -50,11 +50,13 @@ public class Inicio extends javax.swing.JFrame {
         this.colaborador = colaborador;
         initComponents();
 
+        jLPrincipal.setBackground(new Color(51, 51, 51));
         setExtendedState(MAXIMIZED_BOTH);
         iniciarMenu(this.modoMenu = "INICIAL");
         setIcones();
+        setVisible(true);
         setTitle("RM Empréstimos - " + this.colaborador.getNome());
-          atualizaParcelaAtrazo();
+        atualizaParcelaAtrazo();
     }
 
     /**
@@ -78,6 +80,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuBuscaEmprestimo = new javax.swing.JLabel();
         baixaEmprestimo = new javax.swing.JLabel();
         jBRelatorio = new javax.swing.JButton();
+        MenuRelatorio = new javax.swing.JLabel();
         jDesktopPane = new javax.swing.JDesktopPane();
         jLPrincipal = new javax.swing.JLabel();
 
@@ -94,7 +97,7 @@ public class Inicio extends javax.swing.JFrame {
         jBCliente.setForeground(new java.awt.Color(255, 255, 255));
         jBCliente.setText("Cliente");
         jBCliente.setBorderPainted(false);
-        jBCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBCliente.setFocusPainted(false);
         jBCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBCliente.setIconTextGap(5);
@@ -117,7 +120,7 @@ public class Inicio extends javax.swing.JFrame {
         jBColaborador.setForeground(new java.awt.Color(255, 255, 255));
         jBColaborador.setText("Colaborador");
         jBColaborador.setBorderPainted(false);
-        jBColaborador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBColaborador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBColaborador.setFocusPainted(false);
         jBColaborador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBColaborador.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,7 +142,7 @@ public class Inicio extends javax.swing.JFrame {
         jBEmprestimo.setForeground(new java.awt.Color(255, 255, 255));
         jBEmprestimo.setText("Emprestimo");
         jBEmprestimo.setBorderPainted(false);
-        jBEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBEmprestimo.setFocusPainted(false);
         jBEmprestimo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBEmprestimo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,7 +164,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuCadastraColaborador.setForeground(new java.awt.Color(255, 255, 255));
         MenuCadastraColaborador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuCadastraColaborador.setText("Cadastrar");
-        MenuCadastraColaborador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuCadastraColaborador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         MenuCadastraColaborador.setOpaque(true);
         MenuCadastraColaborador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,9 +183,12 @@ public class Inicio extends javax.swing.JFrame {
         MenuGanhos.setForeground(new java.awt.Color(255, 255, 255));
         MenuGanhos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuGanhos.setText("Ganhos");
-        MenuGanhos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuGanhos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         MenuGanhos.setOpaque(true);
         MenuGanhos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuGanhosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 MenuGanhosMouseEntered(evt);
             }
@@ -196,7 +202,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuCobranca.setForeground(new java.awt.Color(255, 255, 255));
         MenuCobranca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuCobranca.setText("Cobranças");
-        MenuCobranca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuCobranca.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         MenuCobranca.setOpaque(true);
         MenuCobranca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -212,7 +218,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuNovoEmprestimo.setForeground(new java.awt.Color(255, 255, 255));
         MenuNovoEmprestimo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuNovoEmprestimo.setText("Novo");
-        MenuNovoEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuNovoEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         MenuNovoEmprestimo.setOpaque(true);
         MenuNovoEmprestimo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -231,7 +237,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuBuscaEmprestimo.setForeground(new java.awt.Color(255, 255, 255));
         MenuBuscaEmprestimo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuBuscaEmprestimo.setText("Buscar");
-        MenuBuscaEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuBuscaEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         MenuBuscaEmprestimo.setOpaque(true);
         MenuBuscaEmprestimo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -247,7 +253,7 @@ public class Inicio extends javax.swing.JFrame {
         baixaEmprestimo.setForeground(new java.awt.Color(255, 255, 255));
         baixaEmprestimo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         baixaEmprestimo.setText("Baixar");
-        baixaEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        baixaEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         baixaEmprestimo.setOpaque(true);
         baixaEmprestimo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -266,7 +272,7 @@ public class Inicio extends javax.swing.JFrame {
         jBRelatorio.setForeground(new java.awt.Color(255, 255, 255));
         jBRelatorio.setText("Relátorios");
         jBRelatorio.setBorderPainted(false);
-        jBRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBRelatorio.setFocusPainted(false);
         jBRelatorio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -280,6 +286,25 @@ public class Inicio extends javax.swing.JFrame {
         jBRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBRelatorioActionPerformed(evt);
+            }
+        });
+
+        MenuRelatorio.setBackground(new java.awt.Color(51, 51, 51));
+        MenuRelatorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        MenuRelatorio.setForeground(new java.awt.Color(255, 255, 255));
+        MenuRelatorio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MenuRelatorio.setText("Baixar");
+        MenuRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        MenuRelatorio.setOpaque(true);
+        MenuRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuRelatorioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MenuRelatorioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MenuRelatorioMouseExited(evt);
             }
         });
 
@@ -306,7 +331,8 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(baixaEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(MenuBuscaEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(MenuNovoEmprestimo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(MenuNovoEmprestimo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MenuRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addComponent(jBRelatorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelMenuLayout.setVerticalGroup(
@@ -331,7 +357,9 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(baixaEmprestimo)
                 .addGap(20, 20, 20)
                 .addComponent(jBRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
+                .addGap(10, 10, 10)
+                .addComponent(MenuRelatorio)
+                .addContainerGap())
         );
 
         jDesktopPane.setBackground(new java.awt.Color(51, 51, 51));
@@ -526,7 +554,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jBRelatorioMouseExited
 
     private void jBRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRelatorioActionPerformed
-        // TODO add your handling code here:
+        iniciarMenu("RELATORIO");
     }//GEN-LAST:event_jBRelatorioActionPerformed
 
     private void baixaEmprestimoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_baixaEmprestimoMouseClicked
@@ -535,6 +563,25 @@ public class Inicio extends javax.swing.JFrame {
         jDesktopPane.add(baixarParcela);
         baixarParcela.setVisible(true);
     }//GEN-LAST:event_baixaEmprestimoMouseClicked
+
+    private void MenuRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuRelatorioMouseClicked
+
+    private void MenuRelatorioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorioMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuRelatorioMouseEntered
+
+    private void MenuRelatorioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorioMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuRelatorioMouseExited
+
+    private void MenuGanhosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuGanhosMouseClicked
+         fecharAbas();
+        JInternalFrame ganhosColaborador = new GanhosColaborador();
+        jDesktopPane.add(ganhosColaborador);
+       ganhosColaborador.setVisible(true);
+    }//GEN-LAST:event_MenuGanhosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -585,6 +632,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel MenuCobranca;
     private javax.swing.JLabel MenuGanhos;
     private javax.swing.JLabel MenuNovoEmprestimo;
+    private javax.swing.JLabel MenuRelatorio;
     private javax.swing.JLabel baixaEmprestimo;
     private javax.swing.JButton jBCliente;
     private javax.swing.JButton jBColaborador;
@@ -619,6 +667,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuBuscaEmprestimo.setIcon(new ImageIcon(getClass().getResource("/icons/search-alt.png")));
         baixaEmprestimo.setIcon(new ImageIcon(getClass().getResource("/icons/stats.png")));
         jBRelatorio.setIcon(new ImageIcon(getClass().getResource("/icons/report.png")));
+        MenuRelatorio.setIcon(new ImageIcon(getClass().getResource("/icons/report.png")));
     }
 
     private void iniciarMenu(String modo) {
@@ -629,13 +678,18 @@ public class Inicio extends javax.swing.JFrame {
         switch (modoMenu) {
             case "COLABORADOR":
                 //ATIVA COLABORADOR
-                MenuCadastraColaborador.setVisible(true);
+               MenuGanhos.setVisible(true);
                 MenuCobranca.setVisible(true);
-                MenuGanhos.setVisible(true);
+                MenuCadastraColaborador.setVisible(true);
+
                 //DESATIVA OUTROS MENuS
+               
                 MenuBuscaEmprestimo.setVisible(false);
                 baixaEmprestimo.setVisible(false);
                 MenuNovoEmprestimo.setVisible(false);
+               //destaviva menu relatorio
+               MenuRelatorio.setVisible(false); 
+                
                 break;
             case "EMPRESTIMO":
                 //ativa menu emprestimo
@@ -643,11 +697,35 @@ public class Inicio extends javax.swing.JFrame {
                 baixaEmprestimo.setVisible(true);
                 MenuNovoEmprestimo.setVisible(true);
                 //desativa outros menus
+               
+                MenuCobranca.setVisible(false);
+                MenuRelatorio.setVisible(false); 
+                MenuCadastraColaborador.setVisible(false);
+                MenuGanhos.setVisible(false);
+
+                break;
+            case "INICIAL":
+                //Desativa Menu Colaborador
                 MenuCadastraColaborador.setVisible(false);
                 MenuCobranca.setVisible(false);
                 MenuGanhos.setVisible(false);
+                //Desatativa Menu Emprestimos
+                MenuBuscaEmprestimo.setVisible(false);
+                baixaEmprestimo.setVisible(false);
+                MenuNovoEmprestimo.setVisible(false);
+                //desativa menu Relatorio
+                 MenuRelatorio.setVisible(false); 
+               
+                
+
+               
                 break;
-            case "INICIAL":
+            case "RELATORIO":
+                //ativa menu Relatorio
+               MenuRelatorio.setVisible(true); 
+               
+
+                //desativa outros menus
                 //Desativa Menu Colaborador
                 MenuCadastraColaborador.setVisible(false);
                 MenuCobranca.setVisible(false);
@@ -666,39 +744,40 @@ public class Inicio extends javax.swing.JFrame {
                 MenuBuscaEmprestimo.setVisible(false);
                 baixaEmprestimo.setVisible(false);
                 MenuNovoEmprestimo.setVisible(false);
+                //desativa menu Relatorio
+                MenuGanhos.setVisible(false);
+                 MenuRelatorio.setVisible(false); 
+              
+
                 break;
         }
     }
+
     private void atualizaParcelaAtrazo() {
-           parcelas = Repository.getInstance().buscarParcelasAtrazada();
-           calcularMultaDiaria();
-    
-    
+        parcelas = Repository.getInstance().buscarParcelasAtrazada();
+        calcularMultaDiaria();
+
     }
-    
-    public void calcularMultaDiaria(){
-   
-       LocalDate dataAtual = LocalDate.now();
-       List<Rm_Parcela>   novaParcelas = new ArrayList<>();
-       for (Rm_Parcela parcela : parcelas) {
+
+    public void calcularMultaDiaria() {
+
+        LocalDate dataAtual = LocalDate.now();
+        List<Rm_Parcela> novaParcelas = new ArrayList<>();
+        for (Rm_Parcela parcela : parcelas) {
             Date dataVencimento = parcela.getDataVencimento();
             LocalDate localDateVencimento = dataVencimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
             if (localDateVencimento.isBefore(dataAtual)) {
                 int diasAtraso = dataAtual.getDayOfMonth() - localDateVencimento.getDayOfMonth();
-                
-                  parcela.setValorJurosDiario(diasAtraso*parcela.getTaxaJurosDiaria());
-                  parcela.setStatus("ATRASADA");
-                  novaParcelas.add(parcela);
+
+                parcela.setValorJurosDiario(diasAtraso * parcela.getTaxaJurosDiaria());
+                parcela.setStatus("ATRASADA");
+                novaParcelas.add(parcela);
             }
         }
-        if(!novaParcelas.isEmpty()) {
+        if (!novaParcelas.isEmpty()) {
             Repository.getInstance().atualizarParcela(novaParcelas);
         }
-     
+
     }
 }
-
-    
-    
-

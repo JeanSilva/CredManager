@@ -26,9 +26,11 @@ import javax.persistence.Transient;
  */
 @Entity
   @NamedQueries({ 
-    @NamedQuery(name = "parcela.BuscarPorEmprestimo", query = "SELECT p FROM Rm_Parcela p WHERE p.emprestimo.id = :emprestimoId and p.status <> 'RECEBIDA' ORDER BY p.numeroParcela "),
-          @NamedQuery(name = "parcela.BuscarAtrazadas", query = "SELECT p FROM Rm_Parcela p WHERE p.dataVencimento < CURRENT_DATE and p.status <> 'RECEBIDA' ORDER BY p.numeroParcela")
-})
+            @NamedQuery(name = "parcela.BuscarPorEmprestimo", query = "SELECT p FROM Rm_Parcela p WHERE p.emprestimo.id = :emprestimoId and p.status <> 'RECEBIDA' ORDER BY p.numeroParcela "),
+          @NamedQuery(name = "parcela.BuscarAtrazadas", query = "SELECT p FROM Rm_Parcela p WHERE p.dataVencimento < CURRENT_DATE and p.status <> 'RECEBIDA' ORDER BY p.numeroParcela"),
+          @NamedQuery(name = "parcela.BuscarTodasPorEmprestimo", query = "SELECT p FROM Rm_Parcela p WHERE p.emprestimo.id = :emprestimoId ORDER BY p.numeroParcela "),
+          
+  })
 public class Rm_Parcela implements Serializable {
 
     /**
