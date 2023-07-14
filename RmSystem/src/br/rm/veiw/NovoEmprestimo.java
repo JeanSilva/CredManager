@@ -633,7 +633,7 @@ public class NovoEmprestimo extends javax.swing.JInternalFrame {
 
         if (jTCliente.getText().isEmpty()) {
             jListCliente.setVisible(false);
-        } else if (tam.length() > 3) {
+        } else if (tam.length() > 2) {
             ListaPesquisa("CLIENTE");
         }
     }//GEN-LAST:event_jTClienteKeyPressed
@@ -649,7 +649,7 @@ public class NovoEmprestimo extends javax.swing.JInternalFrame {
 
         if (jTCobrador.getText().isEmpty()) {
             jListCobrador.setVisible(false);
-        } else if (tam.length() > 3) {
+        } else if (tam.length() > 2) {
             ListaPesquisa("COLABORADOR");
         }
     }//GEN-LAST:event_jTCobradorKeyPressed

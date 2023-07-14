@@ -41,6 +41,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
     private List<Rm_Emprestimo> emprestimos;
     private List<Rm_Parcela> parcelas;
     private Boolean alterandoTabelaDeProdutos = false;
+    private Rm_Emprestimo emprestimo;
 
     /**
      * Creates new form BaixarParcelaEmprestimo
@@ -367,18 +368,17 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
     private void jListClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListClienteMouseClicked
         inserirCliente();
         buscarEmprestimo();
-       jListCliente.setVisible(false);
-       jTCliente.setText("");
+        jListCliente.setVisible(false);
+        jTCliente.setText("");
     }//GEN-LAST:event_jListClienteMouseClicked
 
     private void jTClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyPressed
 
-    
         String tam = jTCliente.getText();
 
         if (jTCliente.getText().isEmpty()) {
             jListCliente.setVisible(false);
-        } else if (tam.length() > 3) {
+        } else if (tam.length() > 2) {
             ListaPesquisa();
         }
     }//GEN-LAST:event_jTClienteKeyPressed
@@ -453,9 +453,9 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
 
             ArrayList<JBeanTableColumn> columns = new ArrayList<>();
             columns.add(new JBeanTableColumn("cliente.nome", "CLIENTE", true, false, 150, null, null, null));
-           columns.add(new JBeanTableColumn("valorEmprestimo", "VALOR", true, false, 150, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("valorEmprestimo", "VALOR", true, false, 150, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
             columns.add(new JBeanTableColumn("qtdParcelas", "PARCELAS", true, false, 150, null, null, null));
-            
+
             this.jBTEmprestimos = new JBeanTable(Rm_Emprestimo.class, columns);
 
             this.jBTEmprestimos.addMouseListener(new MouseAdapter() {
@@ -516,8 +516,8 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
             columns.add(new JBeanTableColumn("taxaJurosDiaria", "R$ TAXA DIÁRIA", true, false, 130, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
             columns.add(new JBeanTableColumn("valorJurosDiario", "R$ JUROS DIARIO", true, false, 140, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
             columns.add(new JBeanTableColumn("valor", "VALOR", true, false, 120, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
-            columns.add(new JBeanTableColumn("valorRecebido", "R$ PARCELA RECEBIDA", true, true, 190, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
-            columns.add(new JBeanTableColumn("valorJurosDiarioRecebido", "R$ JUROS RECEBIDO", true, true, 190, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("valorRecebido", "R$ RECEBIDO", true, true, 150, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("valorJurosDiarioRecebido", "JUROS RECEBIDO", true, true, 180, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
 
             this.jBTParcelas = new JBeanTable(Rm_Parcela.class, columns);
 
@@ -551,15 +551,15 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
     private void buscarEmprestimo() {
         try {
             emprestimos = Repository.getInstance().buscarEmprestimoPorCliente(cliente);
-           if (emprestimos.isEmpty()) {
+            if (emprestimos.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "CLIENTE NÃO TEM EMPRÉSTIMO ABERTO", "Sucesso", WIDTH);
 
-            }else{
-            
-            jBTEmprestimos.removeAll();
+            } else {
 
-            jBTEmprestimos.setModeloDeDados(new ArrayList(emprestimos));
-           }
+                jBTEmprestimos.removeAll();
+
+                jBTEmprestimos.setModeloDeDados(new ArrayList(emprestimos));
+            }
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException ex) {
             Logger.getLogger(BaixarParcelaEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -569,7 +569,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         try {
             parcelas = Repository.getInstance().buscarParcelasEmprestimo(emprestimo);
             jBTParcelas.removeAll();
-
+            this.emprestimo = emprestimo;
             jBTParcelas.setModeloDeDados(new ArrayList(parcelas));
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException ex) {
             Logger.getLogger(BaixarParcelaEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
@@ -584,59 +584,73 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "SELECIONE UMA PARCELA PARA RECEBER", "Sucesso", WIDTH);
 
             } else {
-                for (Rm_Parcela parcela : parcelasRecebidas) {
-                    parcela.setStatus("RECEBIDA");
-                    parcela.setDataPagamento(new Date());
 
-                }
-                Repository.getInstance().atualizarParcela(parcelasRecebidas);
+                if (verificaValorRecebido(parcelasRecebidas)) {
+                    for (Rm_Parcela parcela : parcelasRecebidas) {
 
-                //remover parcelas recebidas 
-                jBTParcelas.removerBeansSelecionados();
+                        parcela.setStatus("RECEBIDA");
+                        parcela.setDataPagamento(new Date());
 
-                parcelas = jBTParcelas.getModeloDeDados();
+                    }
+                    Repository.getInstance().atualizarParcela(parcelasRecebidas);
 
-                for (Rm_Parcela parcelaRecebida : parcelasRecebidas) {
-                    double valorRecebido = parcelaRecebida.getValorRecebido();
-                    double valorParcela = parcelaRecebida.getValor();
+                    //remover parcelas recebidas 
+                    jBTParcelas.removerBeansSelecionados();
 
-                    if (valorRecebido < valorParcela) {
-                        Date dataVencimento = parcelaRecebida.getDataVencimento();
-                        Rm_Parcela proximaParcela = null;
-                        double diferenca = valorParcela - valorRecebido;
+                    parcelas = jBTParcelas.getModeloDeDados();
 
-                        for (Rm_Parcela parcela : parcelas) {
-                            if (parcela.getDataVencimento().after(dataVencimento) && parcela.getStatus().equals("ABERTA")) {
-                                proximaParcela = parcela;
-                                break;
+                    for (Rm_Parcela parcelaRecebida : parcelasRecebidas) {
+                        double valorRecebido = parcelaRecebida.getValorRecebido();
+                        double valorParcela = parcelaRecebida.getValor();
+
+                        if (valorRecebido < valorParcela) {
+                            Date dataVencimento = parcelaRecebida.getDataVencimento();
+                            Rm_Parcela proximaParcela = null;
+                            double diferenca = valorParcela - valorRecebido;
+
+                            for (Rm_Parcela parcela : parcelas) {
+                                if (parcela.getDataVencimento().after(dataVencimento) && parcela.getStatus().equals("ABERTA")) {
+                                    proximaParcela = parcela;
+                                    break;
+                                }
                             }
-                        }
 
-                        if (proximaParcela != null) {
-                            double valorProximaParcela = proximaParcela.getValor();
-                            proximaParcela.setValor(valorProximaParcela + diferenca);
-                        }
-                    } else if (valorRecebido > valorParcela) {
-                        Date dataVencimento = parcelaRecebida.getDataVencimento();
-                        Rm_Parcela proximaParcela = null;
-                        double diferenca = valorRecebido - valorParcela;
-
-                        for (Rm_Parcela parcela : parcelas) {
-                            if (parcela.getDataVencimento().after(dataVencimento) && parcela.getStatus().equals("ABERTA")) {
-                                proximaParcela = parcela;
-                                break;
+                            if (proximaParcela != null) {
+                                double valorProximaParcela = proximaParcela.getValor();
+                                proximaParcela.setValor(valorProximaParcela + diferenca);
                             }
-                        }
+                        } else if (valorRecebido > valorParcela) {
+                            Date dataVencimento = parcelaRecebida.getDataVencimento();
+                            Rm_Parcela proximaParcela = null;
+                            double diferenca = valorRecebido - valorParcela;
 
-                        if (proximaParcela != null) {
-                            double valorProximaParcela = proximaParcela.getValor();
-                            proximaParcela.setValor(Math.max(0, valorProximaParcela - diferenca));
+                            for (Rm_Parcela parcela : parcelas) {
+                                if (parcela.getDataVencimento().after(dataVencimento) && parcela.getStatus().equals("ABERTA")) {
+                                    proximaParcela = parcela;
+                                    break;
+                                }
+                            }
+
+                            if (proximaParcela != null) {
+                                double valorProximaParcela = proximaParcela.getValor();
+                                proximaParcela.setValor(Math.max(0, valorProximaParcela - diferenca));
+                            }
                         }
                     }
+
+                    Repository.getInstance().atualizarParcela(parcelas);
+
+                    jBTParcelas.setModeloDeDados(new ArrayList(parcelas));
+                    JOptionPane.showMessageDialog(null, "PARCELAS RECEBIDAS COM SUCESSO", "Sucesso", WIDTH);
+                    List<Rm_Parcela> p = Repository.getInstance().buscarParcelasEmprestimo(emprestimo);
+
+                    if (p.isEmpty()) {
+                        emprestimo.setStatus("FINALIZADO");
+                        Repository.getInstance().atualizarEmprestimo(emprestimo);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "VALOR RECEBIDO NÃO PODE SER 0", "Sucesso", WIDTH);
                 }
-                Repository.getInstance().atualizarParcela(parcelas);
-                jBTParcelas.setModeloDeDados(new ArrayList(parcelas));
-                JOptionPane.showMessageDialog(null, "PARCELAS RECEBIDAS COM SUCESSO", "Sucesso", WIDTH);
 
             }
 
@@ -646,4 +660,15 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
 
     }
 
+    public boolean verificaValorRecebido(List<Rm_Parcela> parcelasRecebidas) {
+
+        for (Rm_Parcela parcela : parcelasRecebidas) {
+
+            if (parcela.getValorRecebido() <= 0d) {
+                return false;
+            }
+        }
+        return true;
+
+    }
 }

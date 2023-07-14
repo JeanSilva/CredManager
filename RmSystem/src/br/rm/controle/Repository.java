@@ -73,6 +73,21 @@ public class Repository {
             throw new RuntimeException(ex);
         }
     }
+    
+     public void atualizarEmprestimo(Rm_Emprestimo emprestimo) {
+        try {
+            if (!entidade.getTransaction().isActive()) {
+                entidade.getTransaction().begin();
+            }
+            entidade.merge(emprestimo);
+            entidade.getTransaction().commit();
+        } catch (RuntimeException ex) {
+            if (entidade.getTransaction().isActive()) {
+                entidade.getTransaction().rollback();
+            }
+            throw new RuntimeException(ex);
+        }
+    }
 
     public void atualizarParcela(List<Rm_Parcela> parcelas) {
         try {
