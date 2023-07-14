@@ -211,7 +211,7 @@ public class BuscaEmprestimo extends javax.swing.JInternalFrame {
             }
         });
 
-        jTabbedPane2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTabbedPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTabbedPane2.setToolTipText("");
         jTabbedPane2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
@@ -323,7 +323,7 @@ public class BuscaEmprestimo extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
                             .addComponent(jTRg5, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,7 +437,7 @@ public class BuscaEmprestimo extends javax.swing.JInternalFrame {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jTCnpj)
                                 .addComponent(jTRuaComercio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -462,7 +462,7 @@ public class BuscaEmprestimo extends javax.swing.JInternalFrame {
                 .addComponent(jLabel18)
                 .addGap(0, 0, 0)
                 .addComponent(jTNumeroComercio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Info Comércio", jPanel3);
@@ -685,6 +685,7 @@ public class BuscaEmprestimo extends javax.swing.JInternalFrame {
 
         jTabbedPane2.addTab("Info Emprestimo", jPanel4);
 
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jPanel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -810,16 +811,16 @@ public class BuscaEmprestimo extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();

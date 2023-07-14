@@ -28,9 +28,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -39,7 +39,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -295,7 +295,7 @@
         <Container class="javax.swing.JTabbedPane" name="jTabbedPane2">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                 <BevelBorder/>
               </Border>
             </Property>
@@ -382,7 +382,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="115" max="32767" attributes="0"/>
+                          <EmptySpace pref="121" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -678,7 +678,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="271" max="32767" attributes="0"/>
+                          <EmptySpace pref="277" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -709,7 +709,7 @@
                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                           <Component id="jTNumeroComercio" min="-2" pref="25" max="-2" attributes="0"/>
-                          <EmptySpace pref="50" max="32767" attributes="0"/>
+                          <EmptySpace pref="52" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1249,6 +1249,11 @@
         </Container>
         <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="12" style="1"/>
             </Property>

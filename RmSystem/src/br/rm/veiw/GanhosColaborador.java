@@ -457,6 +457,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             }
         });
 
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jPanelRecebidas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -522,7 +523,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                         .addGroup(jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
                             .addComponent(jLComissaoRecebida))
-                        .addGap(0, 193, Short.MAX_VALUE))
+                        .addGap(0, 189, Short.MAX_VALUE))
                     .addComponent(jScrollPaneParcelasRecebidas))
                 .addContainerGap())
         );
