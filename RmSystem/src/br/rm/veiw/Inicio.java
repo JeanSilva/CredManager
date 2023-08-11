@@ -6,7 +6,10 @@
 package br.rm.veiw;
 
 import br.rm.controle.Repository;
+import br.rm.controle.StatusParcela;
+import br.rm.modelo.Rm_Cliente;
 import br.rm.modelo.Rm_Colaborador;
+import br.rm.modelo.Rm_Emprestimo;
 import br.rm.modelo.Rm_Parcela;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
@@ -14,10 +17,14 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -30,14 +37,21 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Inicio extends javax.swing.JFrame {
 
+    private static TimerTask buscaCliente() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     private Rm_Colaborador colaborador;
+    private Rm_Cliente cliente;
+    private List<Rm_Cliente> clientesAtraso;
     private String modoMenu;
     private List<Rm_Parcela> parcelas;
+    JInternalFrame alerta = new AlertaAtrasos();
 
     public Inicio() {
 
         initComponents();
-
+        clientesAtraso = new ArrayList<>();
         jLPrincipal.setBackground(new Color(51, 51, 51));
         setExtendedState(MAXIMIZED_BOTH);
         this.modoMenu = "INICIAL";
@@ -45,20 +59,23 @@ public class Inicio extends javax.swing.JFrame {
         setIcones();
         setVisible(true);
         atualizaParcelaAtrazo();
-        //desabilitaMenus();
+        buscarClientesAtraso();
+//desabilitaMenus();
     }
 
     public Inicio(Rm_Colaborador colaborador) {
         this.colaborador = colaborador;
         initComponents();
-
+        clientesAtraso = new ArrayList<>();
         jLPrincipal.setBackground(new Color(51, 51, 51));
         setExtendedState(MAXIMIZED_BOTH);
+        verificaPermicao();
         iniciarMenu(this.modoMenu = "INICIAL");
         setIcones();
         setVisible(true);
         setTitle("RM Empréstimos - " + this.colaborador.getNome());
         atualizaParcelaAtrazo();
+        buscarClientesAtraso();
     }
 
     /**
@@ -83,9 +100,9 @@ public class Inicio extends javax.swing.JFrame {
         baixaEmprestimo = new javax.swing.JLabel();
         jBRelatorio = new javax.swing.JButton();
         MenuRelatorio = new javax.swing.JLabel();
-        MenuRelatorio1 = new javax.swing.JLabel();
-        MenuRelatorio2 = new javax.swing.JLabel();
         jBSair = new javax.swing.JButton();
+        jBNoticacao = new javax.swing.JButton();
+        jBConfiguracoes = new javax.swing.JButton();
         jDesktopPane = new javax.swing.JDesktopPane();
         jLPrincipal = new javax.swing.JLabel();
 
@@ -93,7 +110,7 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
-        jPanelMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelMenu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelMenu.setForeground(new java.awt.Color(51, 51, 51));
         jPanelMenu.setAutoscrolls(true);
 
@@ -101,11 +118,10 @@ public class Inicio extends javax.swing.JFrame {
         jBCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBCliente.setForeground(new java.awt.Color(255, 255, 255));
         jBCliente.setText("Cliente");
-        jBCliente.setBorderPainted(false);
+        jBCliente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBCliente.setFocusPainted(false);
-        jBCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBCliente.setIconTextGap(5);
+        jBCliente.setIconTextGap(6);
         jBCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBClienteMouseEntered(evt);
@@ -124,10 +140,11 @@ public class Inicio extends javax.swing.JFrame {
         jBColaborador.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBColaborador.setForeground(new java.awt.Color(255, 255, 255));
         jBColaborador.setText("Colaborador");
-        jBColaborador.setBorderPainted(false);
+        jBColaborador.setActionCommand("    Colaborador");
+        jBColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBColaborador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBColaborador.setFocusPainted(false);
-        jBColaborador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBColaborador.setIconTextGap(6);
         jBColaborador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBColaboradorMouseEntered(evt);
@@ -146,10 +163,10 @@ public class Inicio extends javax.swing.JFrame {
         jBEmprestimo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBEmprestimo.setForeground(new java.awt.Color(255, 255, 255));
         jBEmprestimo.setText("Emprestimo");
-        jBEmprestimo.setBorderPainted(false);
+        jBEmprestimo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBEmprestimo.setFocusPainted(false);
-        jBEmprestimo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBEmprestimo.setIconTextGap(6);
         jBEmprestimo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBEmprestimoMouseEntered(evt);
@@ -169,6 +186,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuCadastraColaborador.setForeground(new java.awt.Color(255, 255, 255));
         MenuCadastraColaborador.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuCadastraColaborador.setText("Cadastrar");
+        MenuCadastraColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuCadastraColaborador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuCadastraColaborador.setOpaque(true);
         MenuCadastraColaborador.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -188,6 +206,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuGanhos.setForeground(new java.awt.Color(255, 255, 255));
         MenuGanhos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuGanhos.setText("Ganhos");
+        MenuGanhos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuGanhos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuGanhos.setOpaque(true);
         MenuGanhos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -207,9 +226,13 @@ public class Inicio extends javax.swing.JFrame {
         MenuCobranca.setForeground(new java.awt.Color(255, 255, 255));
         MenuCobranca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuCobranca.setText("Cobranças");
+        MenuCobranca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuCobranca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuCobranca.setOpaque(true);
         MenuCobranca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuCobrancaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 MenuCobrancaMouseEntered(evt);
             }
@@ -223,6 +246,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuNovoEmprestimo.setForeground(new java.awt.Color(255, 255, 255));
         MenuNovoEmprestimo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuNovoEmprestimo.setText("Novo");
+        MenuNovoEmprestimo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuNovoEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuNovoEmprestimo.setOpaque(true);
         MenuNovoEmprestimo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -242,6 +266,7 @@ public class Inicio extends javax.swing.JFrame {
         MenuBuscaEmprestimo.setForeground(new java.awt.Color(255, 255, 255));
         MenuBuscaEmprestimo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MenuBuscaEmprestimo.setText("Buscar");
+        MenuBuscaEmprestimo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuBuscaEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuBuscaEmprestimo.setOpaque(true);
         MenuBuscaEmprestimo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -261,6 +286,7 @@ public class Inicio extends javax.swing.JFrame {
         baixaEmprestimo.setForeground(new java.awt.Color(255, 255, 255));
         baixaEmprestimo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         baixaEmprestimo.setText("Baixar");
+        baixaEmprestimo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         baixaEmprestimo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         baixaEmprestimo.setOpaque(true);
         baixaEmprestimo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -279,10 +305,10 @@ public class Inicio extends javax.swing.JFrame {
         jBRelatorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBRelatorio.setForeground(new java.awt.Color(255, 255, 255));
         jBRelatorio.setText("Relátorios");
-        jBRelatorio.setBorderPainted(false);
+        jBRelatorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBRelatorio.setFocusPainted(false);
-        jBRelatorio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBRelatorio.setIconTextGap(6);
         jBRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBRelatorioMouseEntered(evt);
@@ -301,7 +327,8 @@ public class Inicio extends javax.swing.JFrame {
         MenuRelatorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuRelatorio.setForeground(new java.awt.Color(255, 255, 255));
         MenuRelatorio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MenuRelatorio.setText("Relátorio 1");
+        MenuRelatorio.setText("Geral");
+        MenuRelatorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuRelatorio.setOpaque(true);
         MenuRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -316,52 +343,14 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        MenuRelatorio1.setBackground(new java.awt.Color(51, 51, 51));
-        MenuRelatorio1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        MenuRelatorio1.setForeground(new java.awt.Color(255, 255, 255));
-        MenuRelatorio1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MenuRelatorio1.setText("Relátorio 2");
-        MenuRelatorio1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuRelatorio1.setOpaque(true);
-        MenuRelatorio1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuRelatorio1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MenuRelatorio1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                MenuRelatorio1MouseExited(evt);
-            }
-        });
-
-        MenuRelatorio2.setBackground(new java.awt.Color(51, 51, 51));
-        MenuRelatorio2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        MenuRelatorio2.setForeground(new java.awt.Color(255, 255, 255));
-        MenuRelatorio2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MenuRelatorio2.setText("Relátorio 3");
-        MenuRelatorio2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MenuRelatorio2.setOpaque(true);
-        MenuRelatorio2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuRelatorio2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MenuRelatorio2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                MenuRelatorio2MouseExited(evt);
-            }
-        });
-
         jBSair.setBackground(new java.awt.Color(51, 51, 51));
         jBSair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBSair.setForeground(new java.awt.Color(255, 255, 255));
         jBSair.setText("SAIR");
-        jBSair.setBorderPainted(false);
+        jBSair.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBSair.setFocusPainted(false);
-        jBSair.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBSair.setIconTextGap(6);
         jBSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBSairMouseEntered(evt);
@@ -376,6 +365,50 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        jBNoticacao.setBackground(new java.awt.Color(51, 51, 51));
+        jBNoticacao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jBNoticacao.setForeground(new java.awt.Color(255, 255, 255));
+        jBNoticacao.setText("Notificações");
+        jBNoticacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBNoticacao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBNoticacao.setFocusPainted(false);
+        jBNoticacao.setIconTextGap(6);
+        jBNoticacao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jBNoticacaoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jBNoticacaoMouseExited(evt);
+            }
+        });
+        jBNoticacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNoticacaoActionPerformed(evt);
+            }
+        });
+
+        jBConfiguracoes.setBackground(new java.awt.Color(51, 51, 51));
+        jBConfiguracoes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jBConfiguracoes.setForeground(new java.awt.Color(255, 255, 255));
+        jBConfiguracoes.setText("Configurações");
+        jBConfiguracoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBConfiguracoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBConfiguracoes.setFocusPainted(false);
+        jBConfiguracoes.setIconTextGap(6);
+        jBConfiguracoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jBConfiguracoesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jBConfiguracoesMouseExited(evt);
+            }
+        });
+        jBConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConfiguracoesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
         jPanelMenu.setLayout(jPanelMenuLayout);
         jPanelMenuLayout.setHorizontalGroup(
@@ -384,33 +417,35 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jBCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBColaborador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                    .addComponent(jBEmprestimo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelMenuLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(MenuCobranca, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(MenuGanhos, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(MenuCadastraColaborador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(MenuCadastraColaborador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jBEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(1, 1, 1))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(baixaEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(MenuBuscaEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(MenuNovoEmprestimo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(MenuRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MenuRelatorio1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MenuRelatorio2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addComponent(jBRelatorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(baixaEmprestimo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(MenuBuscaEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MenuNovoEmprestimo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MenuRelatorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(jBNoticacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBConfiguracoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
+                .addComponent(jBNoticacao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(jBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(20, 20, 20)
                 .addComponent(jBColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(MenuCadastraColaborador)
@@ -418,7 +453,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(MenuGanhos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(MenuCobranca)
-                .addGap(20, 20, 20)
+                .addGap(10, 10, 10)
                 .addComponent(jBEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(MenuNovoEmprestimo)
@@ -426,20 +461,18 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(MenuBuscaEmprestimo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(baixaEmprestimo)
-                .addGap(20, 20, 20)
+                .addGap(10, 10, 10)
                 .addComponent(jBRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(MenuRelatorio)
                 .addGap(10, 10, 10)
-                .addComponent(MenuRelatorio1)
-                .addGap(10, 10, 10)
-                .addComponent(MenuRelatorio2)
+                .addComponent(jBConfiguracoes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(jBSair, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addComponent(jBSair, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jDesktopPane.setBackground(new java.awt.Color(51, 51, 51));
+        jDesktopPane.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jDesktopPane.setForeground(new java.awt.Color(51, 51, 51));
         jDesktopPane.setToolTipText("");
 
@@ -455,7 +488,9 @@ public class Inicio extends javax.swing.JFrame {
         jDesktopPane.setLayout(jDesktopPaneLayout);
         jDesktopPaneLayout.setHorizontalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 949, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPaneLayout.createSequentialGroup()
+                .addComponent(jLPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 949, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         jDesktopPaneLayout.setVerticalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,7 +505,7 @@ public class Inicio extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jDesktopPane))
         );
         jPanel2Layout.setVerticalGroup(
@@ -642,7 +677,10 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_baixaEmprestimoMouseClicked
 
     private void MenuRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorioMouseClicked
-        // TODO add your handling code here:
+        fecharAbas();
+        JInternalFrame relatorio = new Relatorios();
+        jDesktopPane.add(relatorio);
+        relatorio.setVisible(true);
     }//GEN-LAST:event_MenuRelatorioMouseClicked
 
     private void MenuRelatorioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorioMouseEntered
@@ -662,37 +700,9 @@ public class Inicio extends javax.swing.JFrame {
         ganhosColaborador.setVisible(true);
     }//GEN-LAST:event_MenuGanhosMouseClicked
 
-    private void MenuRelatorio1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorio1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuRelatorio1MouseClicked
-
-    private void MenuRelatorio1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorio1MouseEntered
-        MenuRelatorio1.setBackground(new Color(153, 153, 0));
-        MenuRelatorio1.setForeground(Color.WHITE);
-    }//GEN-LAST:event_MenuRelatorio1MouseEntered
-
-    private void MenuRelatorio1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorio1MouseExited
-        MenuRelatorio1.setBackground(new Color(51, 51, 51));
-        MenuRelatorio1.setForeground(Color.WHITE);
-    }//GEN-LAST:event_MenuRelatorio1MouseExited
-
-    private void MenuRelatorio2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorio2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuRelatorio2MouseClicked
-
-    private void MenuRelatorio2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorio2MouseEntered
-        MenuRelatorio2.setBackground(new Color(153, 153, 0));
-        MenuRelatorio2.setForeground(Color.WHITE);
-    }//GEN-LAST:event_MenuRelatorio2MouseEntered
-
-    private void MenuRelatorio2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRelatorio2MouseExited
-        MenuRelatorio2.setBackground(new Color(51, 51, 51));
-        MenuRelatorio2.setForeground(Color.WHITE);
-    }//GEN-LAST:event_MenuRelatorio2MouseExited
-
     private void jBSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBSairMouseEntered
         jBSair.setBackground(Color.RED);
-        jBSair.setForeground(Color.BLACK);
+        jBSair.setForeground(Color.WHITE);
     }//GEN-LAST:event_jBSairMouseEntered
 
     private void jBSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBSairMouseExited
@@ -707,8 +717,6 @@ public class Inicio extends javax.swing.JFrame {
             // Ação a ser executada caso o usuário clique em "Sim"
             case JOptionPane.YES_OPTION:
                 dispose();
-                JFrame inicio = new Inicio();
-                inicio.setVisible(true);
                 JFrame login = new Login();
                 login.setVisible(true);
 
@@ -729,6 +737,47 @@ public class Inicio extends javax.swing.JFrame {
         jDesktopPane.add(buscaEmprestimo);
         buscaEmprestimo.setVisible(true);
     }//GEN-LAST:event_MenuBuscaEmprestimoMouseClicked
+
+    private void jBNoticacaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBNoticacaoMouseEntered
+        jBNoticacao.setBackground(new Color(153, 153, 0));
+        jBNoticacao.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jBNoticacaoMouseEntered
+
+    private void jBNoticacaoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBNoticacaoMouseExited
+        jBNoticacao.setBackground(new Color(51, 51, 51));
+        jBNoticacao.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jBNoticacaoMouseExited
+
+    private void jBNoticacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNoticacaoActionPerformed
+
+        buscarClientesAtraso();
+
+
+    }//GEN-LAST:event_jBNoticacaoActionPerformed
+
+    private void jBConfiguracoesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBConfiguracoesMouseEntered
+        jBConfiguracoes.setBackground(new Color(153, 153, 0));
+        jBConfiguracoes.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jBConfiguracoesMouseEntered
+
+    private void jBConfiguracoesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBConfiguracoesMouseExited
+        jBConfiguracoes.setBackground(new Color(51, 51, 51));
+        jBConfiguracoes.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jBConfiguracoesMouseExited
+
+    private void jBConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfiguracoesActionPerformed
+        fecharAbas();
+        JInternalFrame config = new ConfiguracoesPermissao();
+        jDesktopPane.add(config);
+        config.setVisible(true);
+    }//GEN-LAST:event_jBConfiguracoesActionPerformed
+
+    private void MenuCobrancaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCobrancaMouseClicked
+       fecharAbas();
+        JInternalFrame cobraca = new Cobrancas();
+        jDesktopPane.add(cobraca);
+        cobraca.setVisible(true);
+    }//GEN-LAST:event_MenuCobrancaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -780,12 +829,12 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel MenuGanhos;
     private javax.swing.JLabel MenuNovoEmprestimo;
     private javax.swing.JLabel MenuRelatorio;
-    private javax.swing.JLabel MenuRelatorio1;
-    private javax.swing.JLabel MenuRelatorio2;
     private javax.swing.JLabel baixaEmprestimo;
     private javax.swing.JButton jBCliente;
     private javax.swing.JButton jBColaborador;
+    private javax.swing.JButton jBConfiguracoes;
     private javax.swing.JButton jBEmprestimo;
+    private javax.swing.JButton jBNoticacao;
     private javax.swing.JButton jBRelatorio;
     private javax.swing.JButton jBSair;
     public static javax.swing.JDesktopPane jDesktopPane;
@@ -817,9 +866,9 @@ public class Inicio extends javax.swing.JFrame {
         MenuBuscaEmprestimo.setIcon(new ImageIcon(getClass().getResource("/icons/search-alt.png")));
         baixaEmprestimo.setIcon(new ImageIcon(getClass().getResource("/icons/stats.png")));
         jBRelatorio.setIcon(new ImageIcon(getClass().getResource("/icons/report.png")));
+        jBNoticacao.setIcon(new ImageIcon(getClass().getResource("/icons/bell.png")));
         MenuRelatorio.setIcon(new ImageIcon(getClass().getResource("/icons/report.png")));
-        MenuRelatorio1.setIcon(new ImageIcon(getClass().getResource("/icons/report.png")));
-        MenuRelatorio2.setIcon(new ImageIcon(getClass().getResource("/icons/report.png")));
+        jBConfiguracoes.setIcon(new ImageIcon(getClass().getResource("/icons/config.png")));
         jBSair.setIcon(new ImageIcon(getClass().getResource("/icons/power.png")));
     }
 
@@ -841,8 +890,6 @@ public class Inicio extends javax.swing.JFrame {
                 MenuNovoEmprestimo.setVisible(false);
                 //destaviva menu relatorio
                 MenuRelatorio.setVisible(false);
-                MenuRelatorio1.setVisible(false);
-                MenuRelatorio2.setVisible(false);
 
                 break;
             case "EMPRESTIMO":
@@ -856,8 +903,7 @@ public class Inicio extends javax.swing.JFrame {
                 MenuRelatorio.setVisible(false);
                 MenuCadastraColaborador.setVisible(false);
                 MenuGanhos.setVisible(false);
-                MenuRelatorio1.setVisible(false);
-                MenuRelatorio2.setVisible(false);
+
                 break;
             case "INICIAL":
                 //Desativa Menu Colaborador
@@ -870,15 +916,11 @@ public class Inicio extends javax.swing.JFrame {
                 MenuNovoEmprestimo.setVisible(false);
                 //desativa menu Relatorio
                 MenuRelatorio.setVisible(false);
-                MenuRelatorio1.setVisible(false);
-                MenuRelatorio2.setVisible(false);
 
                 break;
             case "RELATORIO":
                 //ativa menu Relatorio
                 MenuRelatorio.setVisible(true);
-                MenuRelatorio1.setVisible(true);
-                MenuRelatorio2.setVisible(true);
 
                 //desativa outros menus
                 //Desativa Menu Colaborador
@@ -908,7 +950,7 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     private void atualizaParcelaAtrazo() {
-        parcelas = Repository.getInstance().buscarParcelasAtrazada();
+        parcelas = Repository.getInstance().buscarParcelasAtrazadaAberto(StatusParcela.RECEBIDA);
         calcularMultaDiaria();
 
     }
@@ -922,16 +964,15 @@ public class Inicio extends javax.swing.JFrame {
             LocalDate localDateVencimento = dataVencimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
             if (localDateVencimento.isBefore(dataAtual)) {
-                int diasAtraso = dataAtual.getDayOfMonth() - localDateVencimento.getDayOfMonth();
+               long diasAtraso = ChronoUnit.DAYS.between(localDateVencimento, dataAtual);
 
                 parcela.setValorJurosDiario(diasAtraso * parcela.getTaxaJurosDiaria());
-                parcela.setStatus("ATRASADA");
-                novaParcelas.add(parcela);
+                parcela.setStatus(StatusParcela.ATRASADA);
+
             }
         }
-        if (!novaParcelas.isEmpty()) {
-            Repository.getInstance().atualizarParcela(novaParcelas);
-        }
+
+        Repository.getInstance().atualizarParcela(parcelas);
 
     }
 
@@ -939,4 +980,40 @@ public class Inicio extends javax.swing.JFrame {
         jPanelMenu.setVisible(false);
 
     }
+
+    private void buscarClientesAtraso() {
+        clientesAtraso = new ArrayList<>();
+        List<Rm_Emprestimo> emprestimosEmAtraso = new ArrayList<>();
+        List<Rm_Parcela> parcelasAtrasadas = Repository.getInstance().buscarParcelasPorStatus(StatusParcela.ATRASADA);
+        for (Rm_Parcela parcela : parcelasAtrasadas) {
+            // emprestoimoAtrasado =  Repository.getInstance().buscarEmprestimoPorParcela(parcela);
+            emprestimosEmAtraso.add(parcela.getEmprestimo());
+        }
+
+        for (Rm_Emprestimo emprestimo : emprestimosEmAtraso) {
+            if (!clientesAtraso.contains(emprestimo.getCliente())) {
+                clientesAtraso.add(emprestimo.getCliente());
+
+            }
+
+        }
+        if (clientesAtraso.size() >= 100) {
+            jBNoticacao.setText("99+ Notificações");
+        } else {
+            jBNoticacao.setText(clientesAtraso.size() + " Notificações");
+        }
+        if (!clientesAtraso.isEmpty()) {
+            alerta.dispose();
+            alerta = new AlertaAtrasos(clientesAtraso);
+            jDesktopPane.add(alerta);
+            alerta.setVisible(true);
+        }
+    }
+
+    private void verificaPermicao() {
+            
+    
+    
+    }
+
 }

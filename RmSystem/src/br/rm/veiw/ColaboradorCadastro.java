@@ -86,11 +86,20 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
         jTPorcentagemComissao = new JDecimalTextField(2, JDecimalTextField.PRECISAO_DOUBLE);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        cadastros = new javax.swing.JCheckBox();
+        criarEmprestimo = new javax.swing.JCheckBox();
+        relatorio = new javax.swing.JCheckBox();
+        ganho = new javax.swing.JCheckBox();
+        recalculoEmprestimo = new javax.swing.JCheckBox();
+        baixarEmprestimo = new javax.swing.JCheckBox();
+        configuracao = new javax.swing.JCheckBox();
 
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setClosable(true);
         setTitle("Cadastrar e editar colaboradores");
 
-        jPanelDadosPessoais.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados pessoais", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanelDadosPessoais.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Dados pessoais", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         jTNome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTNome.setForeground(new java.awt.Color(255, 255, 255));
@@ -117,9 +126,9 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
         jTEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTEmail.setForeground(new java.awt.Color(255, 255, 255));
 
-        jListColaborador.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jListColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jListColaborador.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jListColaborador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jListColaborador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jListColaborador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jListColaboradorMouseClicked(evt);
@@ -163,7 +172,7 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanelEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Endereço", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanelEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Endereço", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         jTRua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTRua.setForeground(new java.awt.Color(255, 255, 255));
@@ -215,8 +224,8 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
         jBSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBSalvar.setForeground(new java.awt.Color(255, 255, 255));
         jBSalvar.setText("Salvar");
-        jBSalvar.setBorderPainted(false);
-        jBSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBSalvar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBSalvar.setFocusPainted(false);
         jBSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -232,7 +241,7 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados de login", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Dados de login", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         jTUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTUsuario.setForeground(new java.awt.Color(255, 255, 255));
@@ -250,12 +259,12 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                     .addComponent(jPSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                     .addComponent(jAlerta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +278,7 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
                 .addGap(36, 36, 36))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Salárial", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Salário & Comissões", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         jTSalario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTSalario.setForeground(new java.awt.Color(255, 255, 255));
@@ -295,7 +304,7 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
                         .addComponent(jTSalario, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
                     .addComponent(jTPorcentagemComissao, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,30 +320,89 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Permissões do sistema", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+
+        cadastros.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cadastros.setText("Cadastros");
+
+        criarEmprestimo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        criarEmprestimo.setText("Criar empréstimos");
+
+        relatorio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        relatorio.setText("Relatórios");
+
+        ganho.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ganho.setText("Ganhos");
+
+        recalculoEmprestimo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        recalculoEmprestimo.setText("Recálcular empréstimos");
+
+        baixarEmprestimo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        baixarEmprestimo.setText("Baixar empréstimos");
+
+        configuracao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        configuracao.setText("Configurações");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(criarEmprestimo)
+                    .addComponent(relatorio)
+                    .addComponent(ganho)
+                    .addComponent(cadastros)
+                    .addComponent(configuracao)
+                    .addComponent(baixarEmprestimo)
+                    .addComponent(recalculoEmprestimo))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cadastros)
+                .addGap(20, 20, 20)
+                .addComponent(criarEmprestimo)
+                .addGap(20, 20, 20)
+                .addComponent(relatorio)
+                .addGap(20, 20, 20)
+                .addComponent(ganho)
+                .addGap(20, 20, 20)
+                .addComponent(configuracao)
+                .addGap(20, 20, 20)
+                .addComponent(baixarEmprestimo)
+                .addGap(20, 20, 20)
+                .addComponent(recalculoEmprestimo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanelEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanelDadosPessoais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 12, Short.MAX_VALUE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelDadosPessoais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -343,10 +411,11 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15)
-                .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -438,6 +507,11 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox baixarEmprestimo;
+    private javax.swing.JCheckBox cadastros;
+    private javax.swing.JCheckBox configuracao;
+    private javax.swing.JCheckBox criarEmprestimo;
+    private javax.swing.JCheckBox ganho;
     private javax.swing.JLabel jAlerta;
     private javax.swing.JButton jBSalvar;
     private javax.swing.JLabel jLabel1;
@@ -446,6 +520,7 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField jPSenha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelDadosPessoais;
     private javax.swing.JPanel jPanelEndereco;
     private javax.swing.JTextField jTBairro;
@@ -460,6 +535,8 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTRua;
     private javax.swing.JTextField jTSalario;
     private javax.swing.JTextField jTUsuario;
+    private javax.swing.JCheckBox recalculoEmprestimo;
+    private javax.swing.JCheckBox relatorio;
     // End of variables declaration//GEN-END:variables
 
     private void carregarFormulario(Rm_Colaborador colaborador) {

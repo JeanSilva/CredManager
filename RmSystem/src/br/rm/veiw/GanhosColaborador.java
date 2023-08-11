@@ -52,7 +52,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
      */
     public GanhosColaborador() {
         initComponents();
-        jListColaborador.setVisible(true);
+        jListColaborador.setVisible(false);
         modelo = new DefaultListModel();
         jListColaborador.setModel(modelo);
         criarTabelaEmprestimos();
@@ -117,7 +117,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             columns.add(new JBeanTableColumn("numeroParcela", "Num.", true, false, 49, null, null, null));
             columns.add(new JBeanTableColumn("dataFormatada", "VENCIMENTO", true, false, 95, null, null, null));
             columns.add(new JBeanTableColumn("valor", "VALOR", true, false, 80, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
-            columns.add(new JBeanTableColumn("valorRecebido", "VALOR RECEBIDO", true, true, 143, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
+            columns.add(new JBeanTableColumn("valorRecebido", "VALOR RECEBIDO", true, false, 135, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
             
             this.jBTParcelasRebidas = new JBeanTable(Rm_Parcela.class, columns);
 
@@ -204,8 +204,6 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         jTdataFinal = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPaneEmprestimos = new javax.swing.JScrollPane();
-        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -252,14 +250,17 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         jLValorAtraso = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLComissaoAtrasada = new javax.swing.JLabel();
+        jTabbedPaneEmprestimo = new javax.swing.JTabbedPane();
+        jScrollPaneEmprestimos = new javax.swing.JScrollPane();
 
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setClosable(true);
         setTitle("Ganhos Colaborador");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 500));
 
-        jListColaborador.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jListColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jListColaborador.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jListColaborador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jListColaborador.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -278,11 +279,13 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         });
 
         jTdataInicial.setBackground(new java.awt.Color(255, 255, 255));
+        jTdataInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTdataInicial.setForeground(new java.awt.Color(255, 255, 255));
         jTdataInicial.setDateFormatString("dd/MM/yyyy");
         jTdataInicial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jTdataFinal.setBackground(new java.awt.Color(255, 255, 255));
+        jTdataFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTdataFinal.setForeground(new java.awt.Color(255, 255, 255));
         jTdataFinal.setToolTipText("Até");
         jTdataFinal.setDateFormatString("dd/MM/yyyy");
@@ -294,12 +297,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Data final");
 
-        jScrollPaneEmprestimos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Empréstimos Vendidos");
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("SALÁRIO BASE:");
@@ -410,7 +408,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLTotalAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(46, 46, 46)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -460,9 +458,9 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        jPanelRecebidas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelRecebidas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jScrollPaneParcelasRecebidas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPaneParcelasRecebidas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jScrollPaneParcelasRecebidas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -523,16 +521,16 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                         .addGroup(jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
                             .addComponent(jLComissaoRecebida))
-                        .addGap(0, 189, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPaneParcelasRecebidas))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Parcelas recebidas", jPanelRecebidas);
 
-        jPanelAbertas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelAbertas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jScrollPaneParcelasAbertas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPaneParcelasAbertas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel23.setText("Qtd Parcelas:");
@@ -591,18 +589,17 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                         .addGap(15, 15, 15)
                         .addGroup(jPanelAbertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel25)
-                            .addComponent(jLComissaoAberta))
-                        .addGap(0, 0, 0))
+                            .addComponent(jLComissaoAberta)))
                     .addComponent(jScrollPaneParcelasAbertas))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Parcelas abertas", jPanelAbertas);
 
-        jPanelAtrasadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelAtrasadas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelAtrasadas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        jScrollPaneParcelasAtrasadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPaneParcelasAtrasadas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jScrollPaneParcelasAtrasadas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -662,13 +659,19 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                         .addGap(15, 15, 15)
                         .addGroup(jPanelAtrasadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
-                            .addComponent(jLComissaoAtrasada))
-                        .addGap(0, 0, 0))
+                            .addComponent(jLComissaoAtrasada)))
                     .addComponent(jScrollPaneParcelasAtrasadas))
                 .addGap(6, 6, 6))
         );
 
         jTabbedPane1.addTab("Parcelas atrasadas", jPanelAtrasadas);
+
+        jTabbedPaneEmprestimo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTabbedPaneEmprestimo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jScrollPaneEmprestimos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScrollPaneEmprestimos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTabbedPaneEmprestimo.addTab("Empréstimos Vendidos", jScrollPaneEmprestimos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -690,44 +693,43 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                             .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jListColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPaneParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPaneEmprestimos, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(30, 30, 30)
+                            .addComponent(jTabbedPaneParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTabbedPaneEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(3, 3, 3)
-                        .addComponent(jTdataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(3, 3, 3)
+                                .addComponent(jTdataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(3, 3, 3)
+                                .addComponent(jTdataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jListColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(3, 3, 3)
-                        .addComponent(jTdataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPaneEmprestimos, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPaneParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(jListColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jTabbedPaneParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                    .addComponent(jTabbedPaneEmprestimo, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -743,8 +745,8 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -814,7 +816,6 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -830,6 +831,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPaneParcelasRecebidas;
     private javax.swing.JTextField jTNome;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPaneEmprestimo;
     private javax.swing.JTabbedPane jTabbedPaneParcelas;
     private com.toedter.calendar.JDateChooser jTdataFinal;
     private com.toedter.calendar.JDateChooser jTdataInicial;
@@ -846,7 +848,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
 
     private void buscarPorPeriodo(Rm_Colaborador colaborador, Date dateInicial, Date dateFinal) {
         try {
-            emprestimos = Repository.getInstance().BuscarEmprestimoPorDataEColaborador(colaborador, dateInicial, dateFinal);
+            emprestimos = Repository.getInstance().buscarEmprestimoPorDataEColaborador(colaborador, dateInicial, dateFinal);
 
             if (emprestimos != null) {
 
@@ -857,6 +859,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                 calcular();
             } else {
                 JOptionPane.showMessageDialog(null, "NENHUMA VENDA REGISTRADA NESSE PERÍODO", "VENDA NÃO ENCONTRADA", WIDTH);
+            
             }
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException ex) {
             Logger.getLogger(GanhosColaborador.class.getName()).log(Level.SEVERE, null, ex);
@@ -866,9 +869,9 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
 
     private void buscarTodosPeriodo() {
         try {
-            emprestimos = Repository.getInstance().BuscarEmprestimoPorColaborador(colaborador);
+            emprestimos = Repository.getInstance().buscarEmprestimoPorColaborador(colaborador);
             jBTEmprestimos.removeAll();
-            jBTEmprestimos.setModeloDeDados(new ArrayList(emprestimos));
+            
             if (emprestimos != null) {
 
                 jBTEmprestimos.removeAll();
@@ -914,13 +917,13 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             for (Rm_Parcela p : parcelasGeral) {
 
                 switch (p.getStatus()) {
-                    case "ABERTA":
+                    case ABERTA:
                         parcelasEmAberto.add(p);
                         break;
-                    case "ATRASADA":
+                    case ATRASADA:
                         parcelasAtrasadas.add(p);
                         break;
-                    case "RECEBIDA":
+                    case RECEBIDA:
                         parcelasRebidas.add(p);
                         break;
                     default:

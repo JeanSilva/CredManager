@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -26,9 +27,24 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "colaborador.buscarUsuario", query = "SELECT c FROM Rm_Colaborador c WHERE c.usuario = :usuario"),
+      @NamedQuery(name = "colaborador.buscarTodos", query = "SELECT c FROM Rm_Colaborador c "),
     @NamedQuery(name = "colaborador.buscarCpf", query = "SELECT c FROM Rm_Colaborador c WHERE c.cpf = :cpf"),
     @NamedQuery(name = "colaborador.buscarNome", query = "SELECT c FROM Rm_Colaborador c where LOWER(c.nome) like LOWER(:nome) ORDER BY c.nome"),})
 public class Rm_Colaborador implements Serializable {
+
+    /**
+     * @return the permissaoUsuario
+     */
+    public Rm_PermissaoUsuario getPermissaoUsuario() {
+        return permissaoUsuario;
+    }
+
+    /**
+     * @param permissaoUsuario the permissaoUsuario to set
+     */
+    public void setPermissaoUsuario(Rm_PermissaoUsuario permissaoUsuario) {
+        this.permissaoUsuario = permissaoUsuario;
+    }
 
     /**
      * @return the emprestimos
@@ -164,6 +180,8 @@ public class Rm_Colaborador implements Serializable {
     @Column()
     private double porcentagemComissao;
     
+     @OneToOne(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Rm_PermissaoUsuario permissaoUsuario;
 
     @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rm_Cliente> clientes = new ArrayList<>();

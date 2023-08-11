@@ -9,6 +9,7 @@ import br.rm.modelo.Rm_Cliente;
 import br.rm.modelo.Rm_Colaborador;
 import br.rm.modelo.Rm_Emprestimo;
 import br.rm.modelo.Rm_Parcela;
+import br.rm.modelo.Rm_PermissaoUsuario;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,12 +37,40 @@ public class Repository {
         }
         return repository;
     }
-
+   
     public void cadastrarCliente(Rm_Cliente cliente) {
         try {
+           
             entidade.getTransaction().begin();
             entidade.merge(cliente);
             entidade.getTransaction().commit();
+        } catch (RuntimeException ex) {
+            entidade.getTransaction().rollback();
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void excluirParcela(List<Rm_Parcela> parcelas) {
+        try {
+
+            for (Rm_Parcela parcela : parcelas) {
+                entidade.getTransaction().begin();
+                entidade.remove(parcela);
+                entidade.getTransaction().commit();
+            }
+        } catch (RuntimeException ex) {
+            entidade.getTransaction().rollback();
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void excluirEmprestimo(Rm_Emprestimo emprestimo) {
+        try {
+
+            entidade.getTransaction().begin();
+            entidade.remove(emprestimo);
+            entidade.getTransaction().commit();
+
         } catch (RuntimeException ex) {
             entidade.getTransaction().rollback();
             throw new RuntimeException(ex);
@@ -64,7 +93,8 @@ public class Repository {
             if (!entidade.getTransaction().isActive()) {
                 entidade.getTransaction().begin();
             }
-            entidade.persist(emprestimo);
+            entidade.merge(emprestimo);
+           
             entidade.getTransaction().commit();
         } catch (RuntimeException ex) {
             if (entidade.getTransaction().isActive()) {
@@ -73,14 +103,32 @@ public class Repository {
             throw new RuntimeException(ex);
         }
     }
-    
-     public void atualizarEmprestimo(Rm_Emprestimo emprestimo) {
+
+    public void criarEatualizarPermissoes(Rm_PermissaoUsuario permissaoUsuario) {
+        try {
+            if (!entidade.getTransaction().isActive()) {
+                entidade.getTransaction().begin();
+            }
+            entidade.merge(permissaoUsuario);
+            entidade.getTransaction().commit();
+
+        } catch (RuntimeException ex) {
+            if (entidade.getTransaction().isActive()) {
+                entidade.getTransaction().rollback();
+            }
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    public void atualizarEmprestimo(Rm_Emprestimo emprestimo) {
         try {
             if (!entidade.getTransaction().isActive()) {
                 entidade.getTransaction().begin();
             }
             entidade.merge(emprestimo);
             entidade.getTransaction().commit();
+
         } catch (RuntimeException ex) {
             if (entidade.getTransaction().isActive()) {
                 entidade.getTransaction().rollback();
@@ -145,7 +193,7 @@ public class Repository {
 
             return query.getSingleResult();
         } catch (Exception e) {
-            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, e);
+           // Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }
@@ -249,6 +297,12 @@ public class Repository {
     public List<Rm_Colaborador> buscarColaboradorNome(String nome) {
         TypedQuery<Rm_Colaborador> query = entidade.createNamedQuery("colaborador.buscarNome", Rm_Colaborador.class);
         query.setParameter("nome", "%" + nome + "%");
+        List<Rm_Colaborador> lista = query.getResultList();
+        return lista;
+    }
+
+    public List<Rm_Colaborador> buscarTodosColaborador() {
+        TypedQuery<Rm_Colaborador> query = entidade.createNamedQuery("colaborador.buscarTodos", Rm_Colaborador.class);
         List<Rm_Colaborador> lista = query.getResultList();
         return lista;
     }
@@ -491,15 +545,72 @@ public class Repository {
     
     }
      */
-    public List<Rm_Emprestimo> buscarEmprestimoPorCliente(Rm_Cliente cliente) {
-        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorCliente", Rm_Emprestimo.class);
+    public List<Rm_Emprestimo> buscarEmprestimoPorClienteStatus(Rm_Cliente cliente, StatusEmprestimo status) {
+        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorClienteStatus", Rm_Emprestimo.class);
         query.setParameter("clienteId", cliente.getId());
+        query.setParameter("status", status);
         List<Rm_Emprestimo> lista = query.getResultList();
         return lista;
 
     }
 
-    public List<Rm_Emprestimo> BuscarEmprestimoPorColaborador(Rm_Colaborador colaborador) {
+    public List<Rm_Emprestimo> buscarTodosEmprestimoPorCliente(Rm_Cliente cliente) {
+        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarTodosPorCliente", Rm_Emprestimo.class);
+        query.setParameter("clienteId", cliente.getId());
+
+        List<Rm_Emprestimo> lista = query.getResultList();
+        return lista;
+
+    }
+
+    public List<Rm_Emprestimo> buscarTodosEmprestimoPorClienteData(Rm_Cliente cliente, Date dateInicial, Date dateFinal) {
+        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarTodosPorClienteData", Rm_Emprestimo.class);
+        query.setParameter("clienteId", cliente.getId());
+        query.setParameter("dataInicial", dateInicial);
+        query.setParameter("dataFinal", dateFinal);
+        List<Rm_Emprestimo> lista = query.getResultList();
+        return lista;
+
+    }
+
+    public List<Rm_Emprestimo> buscarEmprestimoPorClienteStatusData(Rm_Cliente cliente, StatusEmprestimo status, Date dateInicial, Date dateFinal) {
+        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorClienteStatusData", Rm_Emprestimo.class);
+        query.setParameter("clienteId", cliente.getId());
+        query.setParameter("status", status);
+        query.setParameter("dataInicial", dateInicial);
+        query.setParameter("dataFinal", dateFinal);
+        List<Rm_Emprestimo> lista = query.getResultList();
+        return lista;
+
+    }
+
+    public List<Rm_Emprestimo> buscarEmprestimoPorStatusData(StatusEmprestimo status, Date dateInicial, Date dateFinal) {
+        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarTodosPorDataStatus", Rm_Emprestimo.class);
+        query.setParameter("status", status);
+        query.setParameter("dataInicial", dateInicial);
+        query.setParameter("dataFinal", dateFinal);
+        List<Rm_Emprestimo> lista = query.getResultList();
+        return lista;
+
+    }
+
+    public List<Rm_Emprestimo> buscarTodosEmprestimo() {
+        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarTodos", Rm_Emprestimo.class);
+        List<Rm_Emprestimo> lista = query.getResultList();
+        return lista;
+
+    }
+
+    public List<Rm_Emprestimo> buscarTodosEmprestimoPorData(Date dateInicial, Date dateFinal) {
+        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarTodosPorData", Rm_Emprestimo.class);
+        query.setParameter("dataInicial", dateInicial);
+        query.setParameter("dataFinal", dateFinal);
+        List<Rm_Emprestimo> lista = query.getResultList();
+        return lista;
+
+    }
+
+    public List<Rm_Emprestimo> buscarEmprestimoPorColaborador(Rm_Colaborador colaborador) {
         try {
             TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorColaborador", Rm_Emprestimo.class);
             query.setParameter("colaboradorId", colaborador.getId());
@@ -516,13 +627,41 @@ public class Repository {
 
     }
 
-    public List<Rm_Parcela> buscarParcelasEmprestimo(Rm_Emprestimo emprestimo) {
+    /*
+    public Rm_Emprestimo buscarEmprestimoPorParcela(Rm_Parcela parcela) {
+        try {
+            TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("eemprestimo.BuscarPorParcela", Rm_Emprestimo.class);
+            query.setParameter("parcelaId", parcela.getId());
+            Rm_Emprestimo emprestimo = query.getSingleResult();
+            return emprestimo;
+
+        } catch (Exception e) {
+            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
+
+    }
+**/
+    public List<Rm_Parcela> buscarParcelasEmprestimo(Rm_Emprestimo emprestimo, StatusParcela status) {
         TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarPorEmprestimo", Rm_Parcela.class);
         query.setParameter("emprestimoId", emprestimo.getId());
+        query.setParameter("status", status);
+
         List<Rm_Parcela> lista = query.getResultList();
         return lista;
 
     }
+
+    public List<Rm_Emprestimo> buscarTodosEmprestimoPorStatus(StatusEmprestimo status) {
+        TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorTodosPorStatus", Rm_Emprestimo.class);
+
+        query.setParameter("status", status);
+
+        List<Rm_Emprestimo> lista = query.getResultList();
+        return lista;
+
+    }
+
     public List<Rm_Parcela> BuscarTodasPorEmprestimo(Rm_Emprestimo emprestimo) {
         TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarTodasPorEmprestimo", Rm_Parcela.class);
         query.setParameter("emprestimoId", emprestimo.getId());
@@ -531,16 +670,23 @@ public class Repository {
 
     }
 
-    
-    
-    public List<Rm_Parcela> buscarParcelasAtrazada() {
-        TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarAtrazadas", Rm_Parcela.class);
+    public List<Rm_Parcela> buscarParcelasAtrazadaAberto(StatusParcela status) {
+        TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarAtrazadasAberto", Rm_Parcela.class);
+        query.setParameter("status", status);
         List<Rm_Parcela> lista = query.getResultList();
         return lista;
 
     }
 
-    public List<Rm_Emprestimo> BuscarEmprestimoPorDataEColaborador(Rm_Colaborador colaborador, Date dateInicial, Date dateFinal) {
+    public List<Rm_Parcela> buscarParcelasPorStatus(StatusParcela status) {
+        TypedQuery<Rm_Parcela> query = entidade.createNamedQuery("parcela.BuscarPorStatus", Rm_Parcela.class);
+        query.setParameter("status", status);
+        List<Rm_Parcela> lista = query.getResultList();
+        return lista;
+
+    }
+
+    public List<Rm_Emprestimo> buscarEmprestimoPorDataEColaborador(Rm_Colaborador colaborador, Date dateInicial, Date dateFinal) {
         try {
             TypedQuery<Rm_Emprestimo> query = entidade.createNamedQuery("emprestimo.BuscarPorColaboradorEPeriodo", Rm_Emprestimo.class);
             query.setParameter("colaboradorId", colaborador.getId());

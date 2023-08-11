@@ -5,6 +5,7 @@
  */
 package br.rm.modelo;
 
+import br.rm.controle.StatusEmprestimo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -27,12 +28,22 @@ import javax.persistence.Temporal;
  * @author Jayne
  */
 @Entity
-  @NamedQueries({ 
-    @NamedQuery(name = "emprestimo.BuscarPorCliente", query = "SELECT e FROM Rm_Emprestimo e WHERE e.cliente.id = :clienteId AND e.status = 'ABERTO' "),
+@NamedQueries({
+    //POR CLIENTE
+    @NamedQuery(name = "emprestimo.BuscarPorClienteStatus", query = "SELECT e FROM Rm_Emprestimo e WHERE e.cliente.id = :clienteId AND e.status =:status "),
+    @NamedQuery(name = "emprestimo.BuscarPorClienteStatusData", query = "SELECT e FROM Rm_Emprestimo e WHERE e.cliente.id = :clienteId AND e.status =:status AND e.dataLacamento BETWEEN :dataInicial AND :dataFinal "),
+    @NamedQuery(name = "emprestimo.BuscarPorTodosPorStatus", query = "SELECT e FROM Rm_Emprestimo e WHERE e.status =:status "),
     @NamedQuery(name = "emprestimo.BuscarPorColaborador", query = "SELECT e FROM Rm_Emprestimo e WHERE e.colaborador.id = :colaboradorId"),
-    @NamedQuery(name = "emprestimo.BuscarPorColaboradorEPeriodo", query = "SELECT e FROM Rm_Emprestimo e WHERE e.colaborador.id = :colaboradorId AND e.dataLacamento BETWEEN :dataInicial AND :dataFinal")
- 
-  })
+    @NamedQuery(name = "emprestimo.BuscarPorColaboradorEPeriodo", query = "SELECT e FROM Rm_Emprestimo e WHERE e.colaborador.id = :colaboradorId AND e.dataLacamento BETWEEN :dataInicial AND :dataFinal"),
+    @NamedQuery(name = "emprestimo.BuscarTodos", query = "SELECT e FROM Rm_Emprestimo e"),
+    @NamedQuery(name = "emprestimo.BuscarTodosPorData", query = "SELECT e FROM Rm_Emprestimo e where e.dataLacamento BETWEEN :dataInicial AND :dataFinal"),
+    @NamedQuery(name = "emprestimo.BuscarTodosPorDataStatus", query = "SELECT e FROM Rm_Emprestimo e where e.status =:status and e.dataLacamento BETWEEN :dataInicial AND :dataFinal"),
+    
+    @NamedQuery(name = "emprestimo.BuscarTodosPorCliente", query = "SELECT e FROM Rm_Emprestimo e WHERE e.cliente.id = :clienteId"),
+   
+    //@NamedQuery(name = "emprestimo.BuscarPorParcela", query = "SELECT e FROM Rm_Emprestimo e WHERE e.parcelas.id = :parcelaId"),
+    
+    @NamedQuery(name = "emprestimo.BuscarTodosPorClienteData", query = "SELECT e FROM Rm_Emprestimo e WHERE e.cliente.id = :clienteId AND e.dataLacamento BETWEEN :dataInicial AND :dataFinal"),})
 public class Rm_Emprestimo implements Serializable {
 
     /**
@@ -94,12 +105,12 @@ public class Rm_Emprestimo implements Serializable {
     private String tipoEmprestimo;
 
     @Column(nullable = false)
-    private String status;
+    private StatusEmprestimo status;
+    ;
 
     @Column(nullable = false)
     private double taxaJurosMultaAtraso;
-    
-    
+
     @Column(nullable = false)
     private double comissaoCobrador;
 
@@ -271,14 +282,14 @@ public class Rm_Emprestimo implements Serializable {
     /**
      * @return the status
      */
-    public String getStatus() {
+    public StatusEmprestimo getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(String status) {
+    public void setStatus(StatusEmprestimo status) {
         this.status = status;
     }
 

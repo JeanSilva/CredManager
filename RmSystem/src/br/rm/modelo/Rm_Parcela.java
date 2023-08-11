@@ -4,6 +4,7 @@
  */
 package br.rm.modelo;
 
+import br.rm.controle.StatusParcela;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,12 +27,32 @@ import javax.persistence.Transient;
  */
 @Entity
   @NamedQueries({ 
-            @NamedQuery(name = "parcela.BuscarPorEmprestimo", query = "SELECT p FROM Rm_Parcela p WHERE p.emprestimo.id = :emprestimoId and p.status <> 'RECEBIDA' ORDER BY p.numeroParcela "),
-          @NamedQuery(name = "parcela.BuscarAtrazadas", query = "SELECT p FROM Rm_Parcela p WHERE p.dataVencimento < CURRENT_DATE and p.status <> 'RECEBIDA' ORDER BY p.numeroParcela"),
+        
+          @NamedQuery(name = "parcela.BuscarPorEmprestimo", query = "SELECT p FROM Rm_Parcela p WHERE p.emprestimo.id = :emprestimoId and p.status <> :status ORDER BY p.numeroParcela "),
+          @NamedQuery(name = "parcela.BuscarAtrazadasAberto", query = "SELECT p FROM Rm_Parcela p WHERE p.dataVencimento < CURRENT_DATE and p.status <> :status ORDER BY p.numeroParcela"),
           @NamedQuery(name = "parcela.BuscarTodasPorEmprestimo", query = "SELECT p FROM Rm_Parcela p WHERE p.emprestimo.id = :emprestimoId ORDER BY p.numeroParcela "),
-           
+          @NamedQuery(name = "parcela.BuscarPorStatus", query = "SELECT p FROM Rm_Parcela p WHERE p.dataVencimento < CURRENT_DATE and p.status = :status ORDER BY p.numeroParcela"),
   })
 public class Rm_Parcela implements Serializable {
+
+    /**
+     * @return the dataRecebimentoFormatada
+     */
+    public String getDataRecebimentoFormatada() {
+      
+         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            dataRecebimentoFormatada = format.format(getDataPagamento());
+         
+         return dataRecebimentoFormatada;
+    }
+    
+
+    /**
+     * @param dataRecebimentoFormatada the dataRecebimentoFormatada to set
+     */
+    public void setDataRecebimentoFormatada(String dataRecebimentoFormatada) {
+        this.dataRecebimentoFormatada = dataRecebimentoFormatada;
+    }
 
     /**
      * @return the valorJurosDiarioRecebido
@@ -102,6 +123,9 @@ public class Rm_Parcela implements Serializable {
     
     @Transient
     private String dataFormatada;
+    
+    @Transient
+    private String dataRecebimentoFormatada;
 
     @Column(nullable = false)
     private double valor;
@@ -127,7 +151,7 @@ public class Rm_Parcela implements Serializable {
     private Date dataVencimento;
 
     @Column(nullable = false)
-    private String status;
+    private StatusParcela status;
 
     @Column(nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -215,14 +239,14 @@ public class Rm_Parcela implements Serializable {
     /**
      * @return the status
      */
-    public String getStatus() {
+    public StatusParcela getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(String status) {
+    public void setStatus(StatusParcela status) {
         this.status = status;
     }
 

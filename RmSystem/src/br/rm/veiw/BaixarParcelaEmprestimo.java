@@ -5,6 +5,8 @@
 package br.rm.veiw;
 
 import br.rm.controle.Repository;
+import br.rm.controle.StatusEmprestimo;
+import br.rm.controle.StatusParcela;
 import br.rm.modelo.Rm_Cliente;
 import br.rm.modelo.Rm_Emprestimo;
 import br.rm.modelo.Rm_Parcela;
@@ -84,10 +86,11 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         jSPParcelas1 = new javax.swing.JScrollPane();
         jBSalvar1 = new javax.swing.JButton();
 
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setClosable(true);
         setTitle("Receber parcelas");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jTCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTCliente.setForeground(new java.awt.Color(255, 255, 255));
@@ -97,7 +100,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
             }
         });
 
-        jListCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jListCliente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jListCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jListCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jListCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -106,7 +109,9 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Empréstimos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Empréstimos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+
+        jScrollPaneEmprestimo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -120,12 +125,14 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(5, 5, 5)
                 .addComponent(jScrollPaneEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Parcelas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Parcelas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+
+        jSPParcelas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -147,8 +154,10 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         jBSalvar.setBackground(new java.awt.Color(51, 51, 51));
         jBSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        jBSalvar.setText("Baixar parcelas selecinadas");
-        jBSalvar.setBorderPainted(false);
+        jBSalvar.setText("Receber parcelas");
+        jBSalvar.setToolTipText("");
+        jBSalvar.setActionCommand("");
+        jBSalvar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBSalvar.setFocusPainted(false);
         jBSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -170,10 +179,10 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,14 +349,14 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 609, Short.MAX_VALUE)
+                    .addGap(0, 613, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 609, Short.MAX_VALUE)))
+                    .addGap(0, 613, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,9 +366,9 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
                 .addGap(30, 30, 30))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 355, Short.MAX_VALUE)
+                    .addGap(0, 359, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 356, Short.MAX_VALUE)))
+                    .addGap(0, 360, Short.MAX_VALUE)))
         );
 
         pack();
@@ -550,7 +559,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
 
     private void buscarEmprestimo() {
         try {
-            emprestimos = Repository.getInstance().buscarEmprestimoPorCliente(cliente);
+            emprestimos = Repository.getInstance().buscarEmprestimoPorClienteStatus(cliente, StatusEmprestimo.ABERTO);
             if (emprestimos.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "CLIENTE NÃO TEM EMPRÉSTIMO ABERTO", "Sucesso", WIDTH);
 
@@ -567,7 +576,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
 
     private void buscarParcela(Rm_Emprestimo emprestimo) {
         try {
-            parcelas = Repository.getInstance().buscarParcelasEmprestimo(emprestimo);
+            parcelas = Repository.getInstance().buscarParcelasEmprestimo(emprestimo, StatusParcela.RECEBIDA);
             jBTParcelas.removeAll();
             this.emprestimo = emprestimo;
             jBTParcelas.setModeloDeDados(new ArrayList(parcelas));
@@ -588,7 +597,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
                 if (verificaValorRecebido(parcelasRecebidas)) {
                     for (Rm_Parcela parcela : parcelasRecebidas) {
 
-                        parcela.setStatus("RECEBIDA");
+                        parcela.setStatus(StatusParcela.RECEBIDA);
                         parcela.setDataPagamento(new Date());
 
                     }
@@ -642,10 +651,10 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
 
                     jBTParcelas.setModeloDeDados(new ArrayList(parcelas));
                     JOptionPane.showMessageDialog(null, "PARCELAS RECEBIDAS COM SUCESSO", "Sucesso", WIDTH);
-                    List<Rm_Parcela> p = Repository.getInstance().buscarParcelasEmprestimo(emprestimo);
+                    List<Rm_Parcela> p = Repository.getInstance().buscarParcelasEmprestimo(emprestimo, StatusParcela.RECEBIDA);
 
                     if (p.isEmpty()) {
-                        emprestimo.setStatus("FINALIZADO");
+                        emprestimo.setStatus(StatusEmprestimo.FINALIZADO);
                         Repository.getInstance().atualizarEmprestimo(emprestimo);
                     }
                 } else {
