@@ -12,13 +12,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DEV/Desktop/Arquivos%20Jean/RmSystemAtualizado/RmSystem/src/br/rm/controle/Repository.java</file>
+            <file>file:/C:/Users/DEV/Desktop/Arquivos%20Jean/RmSystemAtualizado/RmSystem/src/br/rm/modelo/Rm_Parcela.java</file>
             <file>file:/C:/Users/DEV/Desktop/Arquivos%20Jean/RmSystemAtualizado/RmSystem/src/br/rm/veiw/Cobrancas.java</file>
-            <file>file:/C:/Users/DEV/Desktop/Arquivos%20Jean/RmSystemAtualizado/RmSystem/src/br/rm/veiw/ConfiguracoesPermissao.java</file>
-            <file>file:/C:/Users/DEV/Desktop/Arquivos%20Jean/RmSystemAtualizado/RmSystem/src/br/rm/veiw/AlertaAtrasos.java</file>
-            <file>file:/C:/Users/DEV/Desktop/Arquivos%20Jean/RmSystemAtualizado/RmSystem/src/br/rm/veiw/GanhosColaborador.java</file>
-            <file>file:/C:/Users/DEV/Desktop/Arquivos%20Jean/RmSystemAtualizado/RmSystem/src/br/rm/veiw/Login.java</file>
-            <file>file:/C:/Users/DEV/Desktop/Arquivos%20Jean/RmSystemAtualizado/RmSystem/src/br/rm/veiw/Inicio.java</file>
+            <file>file:/C:/Users/DEV/Desktop/Arquivos%20Jean/RmSystemAtualizado/RmSystem/src/br/rm/veiw/Relatorios.java</file>
         </group>
     </open-files>
 </project-private>

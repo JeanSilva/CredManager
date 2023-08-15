@@ -421,13 +421,13 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(MenuCobranca, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(MenuGanhos, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(MenuCadastraColaborador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(MenuCadastraColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jBEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(1, 1, 1))
             .addComponent(jBRelatorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBNoticacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBConfiguracoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,9 +435,8 @@ public class Inicio extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(MenuBuscaEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(MenuNovoEmprestimo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(MenuRelatorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addComponent(jBNoticacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBConfiguracoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MenuRelatorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MenuGanhos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,22 +448,22 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jBColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(MenuCadastraColaborador)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MenuGanhos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(MenuCobranca)
                 .addGap(10, 10, 10)
                 .addComponent(jBEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(MenuNovoEmprestimo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MenuNovoEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
                 .addComponent(MenuBuscaEmprestimo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(baixaEmprestimo)
                 .addGap(10, 10, 10)
                 .addComponent(jBRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(MenuRelatorio)
+                .addGap(6, 6, 6)
+                .addComponent(MenuGanhos)
                 .addGap(10, 10, 10)
                 .addComponent(jBConfiguracoes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
@@ -773,7 +772,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jBConfiguracoesActionPerformed
 
     private void MenuCobrancaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCobrancaMouseClicked
-       fecharAbas();
+        fecharAbas();
         JInternalFrame cobraca = new Cobrancas();
         jDesktopPane.add(cobraca);
         cobraca.setVisible(true);
@@ -880,7 +879,7 @@ public class Inicio extends javax.swing.JFrame {
         switch (modoMenu) {
             case "COLABORADOR":
                 //ATIVA COLABORADOR
-                MenuGanhos.setVisible(true);
+
                 MenuCobranca.setVisible(true);
                 MenuCadastraColaborador.setVisible(true);
 
@@ -890,7 +889,7 @@ public class Inicio extends javax.swing.JFrame {
                 MenuNovoEmprestimo.setVisible(false);
                 //destaviva menu relatorio
                 MenuRelatorio.setVisible(false);
-
+                MenuGanhos.setVisible(false);
                 break;
             case "EMPRESTIMO":
                 //ativa menu emprestimo
@@ -921,12 +920,12 @@ public class Inicio extends javax.swing.JFrame {
             case "RELATORIO":
                 //ativa menu Relatorio
                 MenuRelatorio.setVisible(true);
-
+                MenuGanhos.setVisible(true);
                 //desativa outros menus
                 //Desativa Menu Colaborador
                 MenuCadastraColaborador.setVisible(false);
                 MenuCobranca.setVisible(false);
-                MenuGanhos.setVisible(false);
+
                 //Desatativa Menu Emprestimos
                 MenuBuscaEmprestimo.setVisible(false);
                 baixaEmprestimo.setVisible(false);
@@ -964,7 +963,7 @@ public class Inicio extends javax.swing.JFrame {
             LocalDate localDateVencimento = dataVencimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
             if (localDateVencimento.isBefore(dataAtual)) {
-               long diasAtraso = ChronoUnit.DAYS.between(localDateVencimento, dataAtual);
+                long diasAtraso = ChronoUnit.DAYS.between(localDateVencimento, dataAtual);
 
                 parcela.setValorJurosDiario(diasAtraso * parcela.getTaxaJurosDiaria());
                 parcela.setStatus(StatusParcela.ATRASADA);
@@ -1011,9 +1010,7 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     private void verificaPermicao() {
-            
-    
-    
+
     }
 
 }

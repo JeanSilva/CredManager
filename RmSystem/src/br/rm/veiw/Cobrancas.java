@@ -12,16 +12,26 @@ import br.rm.controle.StatusParcela;
 import br.rm.modelo.Rm_Colaborador;
 import br.rm.modelo.Rm_Emprestimo;
 import br.rm.modelo.Rm_Parcela;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-
+import javax.xml.crypto.Data;
 
 /**
  *
@@ -37,8 +47,6 @@ public class Cobrancas extends javax.swing.JInternalFrame {
     public Cobrancas() {
         initComponents();
 
-        jTdataInicial.setDate(new Date());
-        jTdataFinal.setDate(new Date());
         format = new FormatacaoMoeda();
         buscarTodosColaborador();
         comboBoxColaborador.addActionListener(new ActionListener() {
@@ -59,10 +67,6 @@ public class Cobrancas extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTdataInicial = new com.toedter.calendar.JDateChooser();
-        jTdataFinal = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         comboBoxColaborador = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jListar = new javax.swing.JButton();
@@ -75,25 +79,6 @@ public class Cobrancas extends javax.swing.JInternalFrame {
         setTitle("Cobranças");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jTdataInicial.setBackground(new java.awt.Color(255, 255, 255));
-        jTdataInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTdataInicial.setForeground(new java.awt.Color(255, 255, 255));
-        jTdataInicial.setDateFormatString("dd/MM/yyyy");
-        jTdataInicial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-
-        jTdataFinal.setBackground(new java.awt.Color(255, 255, 255));
-        jTdataFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTdataFinal.setForeground(new java.awt.Color(255, 255, 255));
-        jTdataFinal.setToolTipText("Até");
-        jTdataFinal.setDateFormatString("dd/MM/yyyy");
-        jTdataFinal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Data final");
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Data inicio");
 
         comboBoxColaborador.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         comboBoxColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -159,48 +144,27 @@ public class Cobrancas extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTdataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboBoxColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jTdataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(comboBoxColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addComponent(jListar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addComponent(jSalvarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jListar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)
+                        .addComponent(jSalvarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(0, 0, 0)
-                            .addComponent(jTdataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(0, 0, 0)
-                            .addComponent(jTdataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(1, 1, 1)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboBoxColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jListar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSalvarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(15, 15, 15)
+                .addComponent(jLabel3)
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(comboBoxColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSalvarPdf, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jListar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -250,22 +214,23 @@ public class Cobrancas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jSalvarPdfMouseExited
 
     private void jSalvarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalvarPdfActionPerformed
-        // TODO add your handling code here:
+        if (clienteAtrasado.length() > 0) {
+            String caminho = obterCaminho();
+            salvarPDF(clienteAtrasado, caminho);
+        } else {
+            JOptionPane.showMessageDialog(null, "NENHUMA COBRANÇA ENCONTRADA", "ALERTA", WIDTH);
+        }
     }//GEN-LAST:event_jSalvarPdfActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Rm_Colaborador> comboBoxColaborador;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton jListar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jSalvarPdf;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTAClientesACobrar;
-    private com.toedter.calendar.JDateChooser jTdataFinal;
-    private com.toedter.calendar.JDateChooser jTdataInicial;
     // End of variables declaration//GEN-END:variables
 
     private void buscarTodosColaborador() {
@@ -284,40 +249,43 @@ public class Cobrancas extends javax.swing.JInternalFrame {
     private void buscarCobrancas() {
         colaborador = (Rm_Colaborador) comboBoxColaborador.getSelectedItem();
         List<Rm_Emprestimo> emprestimosACobrar = new ArrayList<>();
-        List<Rm_Parcela> parcelaACobrar = new ArrayList<>();
 
         if (verificaEmprestimoAberto()) {
             for (Rm_Emprestimo emprestimo : colaborador.getEmprestimos()) {
                 if (emprestimo.getStatus().equals(StatusEmprestimo.ABERTO)) {
+                    boolean hasOpenParcel = false;
+
                     for (Rm_Parcela parcela : emprestimo.getParcela()) {
                         if (parcela.getStatus().equals(StatusParcela.ATRASADA)) {
-
-                            if (!emprestimosACobrar.contains(emprestimo)) {
-                                emprestimosACobrar.add(emprestimo);
-
-                            }
-
-                        } else if (parcela.getDataVencimento() == new Date()) {
-                            if (!emprestimosACobrar.contains(emprestimo)) {
-                                emprestimosACobrar.add(emprestimo);
-                            }
+                            emprestimosACobrar.add(emprestimo);
+                            break; // Adicionou o empréstimo, não precisa verificar outras parcelas
+                        } else if (parcela.getDataVencimento().equals(new Date())) {
+                            hasOpenParcel = true;
                         }
+                    }
 
+                    if (hasOpenParcel) {
+                        emprestimosACobrar.add(emprestimo);
                     }
                 }
             }
-            for (int i = 0; i < emprestimosACobrar.size(); i++) {
-                if (emprestimosACobrar.get(i).getParcela().get(i).getDataVencimento().after(new Date()) || emprestimosACobrar.get(i).getParcela().get(i).getStatus().equals(StatusParcela.ABERTA)) {
-                    emprestimosACobrar.get(i).getParcela().remove(i);
-                    i--; // Decrementa o índice para compensar a remoção        
-                }
 
+            // Atualizar as parcelas apenas para as que devem ser mantidas
+            for (Rm_Emprestimo emprestimo : emprestimosACobrar) {
+                List<Rm_Parcela> parcelasMantidas = new ArrayList<>();
+                for (Rm_Parcela parcela : emprestimo.getParcela()) {
+                    if (parcela.getStatus().equals(StatusParcela.ATRASADA)
+                            || (parcela.getStatus().equals(StatusParcela.ABERTA) && parcela.getDataFormatada().equals(getData()))) {
+                        parcelasMantidas.add(parcela);
+                    }
+                }
+                emprestimo.setParcela(parcelasMantidas);
             }
-            if (!emprestimosACobrar.isEmpty()) {
-                listar(emprestimosACobrar);
-            }
+
+            listar(emprestimosACobrar);
         } else {
             JOptionPane.showMessageDialog(null, "NENHUMA COBRANÇA ENCONTRADA", "ALERTA", WIDTH);
+            clienteAtrasado = new StringBuilder();
             jTAClientesACobrar.setText("");
         }
     }
@@ -328,19 +296,19 @@ public class Cobrancas extends javax.swing.JInternalFrame {
             //clienteAtrasado.append("Tempo de atraso: ").append(cliente.getNome()).append("\n");
             clienteAtrasado.append("Nome: ").append(emprestimo.getCliente().getNome()).append("\n");
             clienteAtrasado.append("Telefone: ").append(emprestimo.getCliente().getTelefone()).append("\n");
-            clienteAtrasado.append("Rua: ").append(emprestimo.getCliente().getRua()).append("  Num: ").append(emprestimo.getCliente().getNumero()).append("\n");
+            clienteAtrasado.append("Rua: ").append(emprestimo.getCliente().getRua()).append("  Nº: ").append(emprestimo.getCliente().getNumero()).append("\n");
             clienteAtrasado.append("Bairro: ").append(emprestimo.getCliente().getBairro()).append("\n");
-            clienteAtrasado.append("EMPRÉSTIMO: ").append(format.formatarMoeda(emprestimo.getValorEmprestimo())).append("   JUROS: ").append(format.formatarMoeda(emprestimo.getTaxaJuros())).append("   VALOR Á PAGAR: ").append(format.formatarMoeda(emprestimo.getValorTotalPagar())).append("\n");
-            clienteAtrasado.append("Cobrador Responsavel: ").append(emprestimo.getColaborador().getNome()).append("\n");;
-            clienteAtrasado.append("                         == PARCELAS == ").append("\n");
-            clienteAtrasado.append("            =NÚMERO=                =VENCIMENTO=                =VALOR=             =JUROS DIÁRIO=             =STATUS=").append("\n");
+            clienteAtrasado.append("EMPRÉSTIMO: ").append(format.formatarMoeda(emprestimo.getValorEmprestimo())).append("   JUROS: ").append(format.formatarPercentual(emprestimo.getTaxaJuros())).append("   VALOR Á PAGAR: ").append(format.formatarMoeda(emprestimo.getValorTotalPagar())).append("\n");
+            clienteAtrasado.append("Cobrador Responsavel: ").append(emprestimo.getColaborador().getNome()).append("\n\n");
+            clienteAtrasado.append("                                                         ===== PARCELAS ===== ").append("\n\n");
+            clienteAtrasado.append("   =NÚMERO=         =VENCIMENTO=        =VALOR=         =JUROS DIÁRIO=    =STATUS=").append("\n");
 
             //ordenar a lista emprestimos.getParcela()
             emprestimo.getParcela().sort((parcela1, parcela2) -> Integer.compare(parcela1.getNumeroParcela(), parcela2.getNumeroParcela()));
             for (Rm_Parcela parcela : emprestimo.getParcela()) {
-                clienteAtrasado.append("                  ").append(parcela.getNumeroParcela()).append("                            ").append(parcela.getDataFormatada()).append("                             ").append(format.formatarMoeda(parcela.getValor())).append("                   ").append(format.formatarMoeda(parcela.getValorJurosDiario())).append("                        ").append(parcela.getStatus()).append("  \n");
+                clienteAtrasado.append("            ").append(parcela.getNumeroParcela()).append("                       ").append(parcela.getDataFormatada()).append("                    ").append(format.formatarMoeda(parcela.getValor())).append("              ").append(format.formatarMoeda(parcela.getValorJurosDiario())).append("                       ").append(parcela.getStatus()).append("  \n");
             }
-            clienteAtrasado.append("________________________________________________________________________________________________________________________________________________\n");
+            clienteAtrasado.append("_______________________________________________________________________________________\n");
 
         }
         jTAClientesACobrar.setText(clienteAtrasado.toString());
@@ -353,11 +321,58 @@ public class Cobrancas extends javax.swing.JInternalFrame {
             if (emprestimo.getStatus().equals(StatusEmprestimo.ABERTO)) {
                 return true;
 
-            } 
+            }
         }
         return false;
     }
 
-    
-   
+// ...
+    private void salvarPDF(StringBuilder conteudo, String caminhoArquivo) {
+        Document document = new Document();
+
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(caminhoArquivo));
+            document.open();
+
+            // Crie uma instância da fonte Helvetica-Bold
+            Font fontBold = new Font(Font.TIMES_ROMAN, 12, Font.BOLD);
+
+            Paragraph paragraph = new Paragraph(conteudo.toString(), fontBold);
+            document.add(paragraph);
+
+            document.close();
+
+            System.out.println("PDF salvo em: " + caminhoArquivo);
+
+            // Abre o arquivo PDF com o aplicativo padrão
+            File pdfFile = new File(caminhoArquivo);
+            if (pdfFile.exists()) {
+                Desktop.getDesktop().open(pdfFile);
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String obterCaminho() {
+        // Obter o caminho da pasta "Documentos" do sistema
+        String documentosPath = System.getProperty("user.home") + File.separator + "Documents";
+
+        // Criar uma nova pasta dentro da pasta "Documentos"
+        String novaPastaPath = documentosPath + File.separator + "Cobranças RM Empréstimos";
+
+        File novaPasta = new File(novaPastaPath);
+        if (novaPasta.exists()) {
+            return novaPastaPath + File.separator + colaborador.getNome() + ".pdf";
+        } else {
+            novaPasta.mkdir();
+            return novaPastaPath + File.separator + colaborador.getNome() + ".pdf";
+        }
+
+    }
+
+    private String getData() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(new Date());
+    }
 }

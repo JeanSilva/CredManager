@@ -20,6 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -118,7 +119,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             columns.add(new JBeanTableColumn("dataFormatada", "VENCIMENTO", true, false, 95, null, null, null));
             columns.add(new JBeanTableColumn("valor", "VALOR", true, false, 80, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
             columns.add(new JBeanTableColumn("valorRecebido", "VALOR RECEBIDO", true, false, 135, JDecimalTableCellEditor.class, JDecimalTableCellRenderer.class, null));
-            
+
             this.jBTParcelasRebidas = new JBeanTable(Rm_Parcela.class, columns);
 
             this.jScrollPaneParcelasRecebidas.setViewportView(this.jBTParcelasRebidas);
@@ -184,8 +185,8 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             if (c.getNome().equals(modelo.getElementAt(linha))) {
                 colaborador = c;
                 buscarRelatorio();
-                jLComissao.setText(format.formatarPercentual(colaborador.getPorcentagemComissao()));
-                jLSalarioBase.setText(format.formatarMoeda(colaborador.getSalario()));
+                jLComissao.setText("% Comissão: "+format.formatarPercentual(colaborador.getPorcentagemComissao()));
+                jLSalarioBase.setText("R$ - Salário Base: "+format.formatarMoeda(colaborador.getSalario()));
                 jListColaborador.setVisible(false);
             }
         }
@@ -205,51 +206,34 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLComissao = new javax.swing.JLabel();
         jLSalarioBase = new javax.swing.JLabel();
         jLTotalEmprestimo = new javax.swing.JLabel();
         jLTotalParcelaRecebida = new javax.swing.JLabel();
         jLTotalParcelaAtraso = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jLComissao = new javax.swing.JLabel();
         jLTotalaReceber = new javax.swing.JLabel();
-        jLTotalAberto = new javax.swing.JLabel();
-        jLTotalParcelaAberta = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLTotalRecebida = new javax.swing.JLabel();
+        jLTotalParcelaAberta = new javax.swing.JLabel();
+        jLTotalAberto = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jTabbedPaneParcelas = new javax.swing.JTabbedPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanelRecebidas = new javax.swing.JPanel();
-        jScrollPaneParcelasRecebidas = new javax.swing.JScrollPane();
-        jLabel17 = new javax.swing.JLabel();
-        jLQtdParcelaRecebida = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLValorRecebido = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLComissaoRecebida = new javax.swing.JLabel();
         jPanelAbertas = new javax.swing.JPanel();
         jScrollPaneParcelasAbertas = new javax.swing.JScrollPane();
-        jLabel23 = new javax.swing.JLabel();
         jLQtdAberta = new javax.swing.JLabel();
         jLValorAberta = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
         jLComissaoAberta = new javax.swing.JLabel();
         jPanelAtrasadas = new javax.swing.JPanel();
         jScrollPaneParcelasAtrasadas = new javax.swing.JScrollPane();
-        jLabel20 = new javax.swing.JLabel();
         jLQtdAtrasada = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
         jLValorAtraso = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
         jLComissaoAtrasada = new javax.swing.JLabel();
+        jPanelRecebidas = new javax.swing.JPanel();
+        jScrollPaneParcelasRecebidas = new javax.swing.JScrollPane();
+        jLQtdParcelaRecebida = new javax.swing.JLabel();
+        jLValorRecebido = new javax.swing.JLabel();
+        jLComissaoRecebida = new javax.swing.JLabel();
         jTabbedPaneEmprestimo = new javax.swing.JTabbedPane();
         jScrollPaneEmprestimos = new javax.swing.JScrollPane();
 
@@ -299,153 +283,98 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("SALÁRIO BASE:");
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setText("TOTAL DE EMPRESTIMOS: ");
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("TOTAL DE PARCELAS RECEBIDAS:");
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setText("TOTAL DE PARCELAS ATRASADAS:");
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel11.setText("COMISSÃO:");
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel12.setText("TOTAL A RECEBER:");
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel13.setText("TOTAL COMISSÃO RECEBIDA:");
-
-        jLComissao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLComissao.setText("valor");
-
         jLSalarioBase.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLSalarioBase.setText("valor");
+        jLSalarioBase.setText("R$ - Salário Base:");
+        jLSalarioBase.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLTotalEmprestimo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLTotalEmprestimo.setText("valor");
+        jLTotalEmprestimo.setText("R$ - Empréstimos: ");
+        jLTotalEmprestimo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLTotalParcelaRecebida.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLTotalParcelaRecebida.setText("valor");
+        jLTotalParcelaRecebida.setText("R$ - Parcelas Recebidas:");
+        jLTotalParcelaRecebida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLTotalParcelaAtraso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLTotalParcelaAtraso.setText("valor");
+        jLTotalParcelaAtraso.setText("R$ - Parcelas atrasadas:");
+        jLTotalParcelaAtraso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel14.setText("Cálculo de recebimentos = SB + Comissão.");
+        jLComissao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLComissao.setText("% Comissão:");
+        jLComissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLTotalaReceber.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLTotalaReceber.setText("Valor");
-
-        jLTotalAberto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLTotalAberto.setText("valor");
-
-        jLTotalParcelaAberta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLTotalParcelaAberta.setText("valor");
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel15.setText("TOTAL DE PARCELAS Á VENCER:");
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel16.setText("TOTAL COMISSÃO EM ABERTO:");
+        jLTotalaReceber.setText("R$ - Saldo (SB + Comissão):");
+        jLTotalaReceber.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLTotalRecebida.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLTotalRecebida.setText("valor");
+        jLTotalRecebida.setText("R$ - Comissão Recebida:");
+        jLTotalRecebida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLTotalParcelaAberta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLTotalParcelaAberta.setText("R$ - Parcelas em Aberto:");
+        jLTotalParcelaAberta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLTotalAberto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLTotalAberto.setText("R$ - Comissão em aberto:");
+        jLTotalAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Obs: Calculo do saldo a receber é:\nSaldo = Salario base+Comissão Recebida");
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLSalarioBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLComissao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLTotalEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLTotalParcelaRecebida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLTotalParcelaAtraso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLTotalParcelaAberta, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLTotalRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLTotalAberto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLTotalaReceber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLTotalEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLComissao, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLSalarioBase, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLTotalParcelaAberta, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLTotalParcelaAtraso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLTotalParcelaRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(150, 150, 150)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(80, 80, 80))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLTotalaReceber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLTotalRecebida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLTotalAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(46, 46, 46)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1)))
+                .addGap(15, 15, 15))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel11)
-                        .addComponent(jLComissao)))
-                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLSalarioBase)
-                    .addComponent(jLabel12)
+                    .addComponent(jLComissao)
                     .addComponent(jLTotalaReceber))
-                .addGap(15, 15, 15)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLTotalEmprestimo)
-                    .addComponent(jLabel13)
+                    .addComponent(jLSalarioBase)
                     .addComponent(jLTotalRecebida))
-                .addGap(15, 15, 15)
+                .addGap(1, 1, 1)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLTotalParcelaRecebida)
-                    .addComponent(jLabel16)
+                    .addComponent(jLTotalEmprestimo)
                     .addComponent(jLTotalAberto))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLTotalParcelaAtraso))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jLTotalParcelaAberta))
-                .addGap(26, 26, 26))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLTotalParcelaRecebida)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLTotalParcelaAtraso)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLTotalParcelaAberta))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGap(15, 15, 15))
         );
 
         jTabbedPaneParcelas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -458,97 +387,21 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        jPanelRecebidas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jScrollPaneParcelasRecebidas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jScrollPaneParcelasRecebidas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel17.setText("Qtd Parcelas:");
-
-        jLQtdParcelaRecebida.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLQtdParcelaRecebida.setText("valor");
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel18.setText("Valor recebido:");
-
-        jLValorRecebido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLValorRecebido.setText("Valor");
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel19.setText("Comissão:");
-
-        jLComissaoRecebida.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLComissaoRecebida.setText("Valor");
-
-        javax.swing.GroupLayout jPanelRecebidasLayout = new javax.swing.GroupLayout(jPanelRecebidas);
-        jPanelRecebidas.setLayout(jPanelRecebidasLayout);
-        jPanelRecebidasLayout.setHorizontalGroup(
-            jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRecebidasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPaneParcelasRecebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addGroup(jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanelRecebidasLayout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLValorRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelRecebidasLayout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLComissaoRecebida, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelRecebidasLayout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLQtdParcelaRecebida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanelRecebidasLayout.setVerticalGroup(
-            jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRecebidasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelRecebidasLayout.createSequentialGroup()
-                        .addGroup(jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(jLQtdParcelaRecebida))
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel18)
-                            .addComponent(jLValorRecebido))
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel19)
-                            .addComponent(jLComissaoRecebida))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPaneParcelasRecebidas))
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Parcelas recebidas", jPanelRecebidas);
-
         jPanelAbertas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jScrollPaneParcelasAbertas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel23.setText("Qtd Parcelas:");
-
         jLQtdAberta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLQtdAberta.setText("Valor");
+        jLQtdAberta.setText("Qtd Parcelas:");
+        jLQtdAberta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLValorAberta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLValorAberta.setText("Valor");
-
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel24.setText("Valor aberto:");
-
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel25.setText("Comissão:");
+        jLValorAberta.setText("Valor aberto:");
+        jLValorAberta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLComissaoAberta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLComissaoAberta.setText("Valor");
+        jLComissaoAberta.setText("Comissão:");
+        jLComissaoAberta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanelAbertasLayout = new javax.swing.GroupLayout(jPanelAbertas);
         jPanelAbertas.setLayout(jPanelAbertasLayout);
@@ -557,21 +410,11 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             .addGroup(jPanelAbertasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPaneParcelasAbertas, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addGroup(jPanelAbertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanelAbertasLayout.createSequentialGroup()
-                        .addComponent(jLabel25)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLComissaoAberta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanelAbertasLayout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLValorAberta, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelAbertasLayout.createSequentialGroup()
-                        .addComponent(jLabel23)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLQtdAberta, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0))
+                .addGap(10, 10, 10)
+                .addGroup(jPanelAbertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLComissaoAberta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLValorAberta, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                    .addComponent(jLQtdAberta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanelAbertasLayout.setVerticalGroup(
             jPanelAbertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,18 +422,12 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanelAbertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAbertasLayout.createSequentialGroup()
-                        .addGroup(jPanelAbertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel23)
-                            .addComponent(jLQtdAberta))
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanelAbertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24)
-                            .addComponent(jLValorAberta))
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanelAbertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel25)
-                            .addComponent(jLComissaoAberta)))
-                    .addComponent(jScrollPaneParcelasAbertas))
+                        .addComponent(jLQtdAberta)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLValorAberta)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLComissaoAberta))
+                    .addComponent(jScrollPaneParcelasAbertas, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -602,23 +439,17 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         jScrollPaneParcelasAtrasadas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jScrollPaneParcelasAtrasadas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel20.setText("Qtd Parcelas:");
-
         jLQtdAtrasada.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLQtdAtrasada.setText("Valor");
-
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel21.setText("Valor em atraso:");
+        jLQtdAtrasada.setText("Qtd Parcelas:");
+        jLQtdAtrasada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLValorAtraso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLValorAtraso.setText("Valor");
-
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel22.setText("Comissão:");
+        jLValorAtraso.setText("Valor em atraso:");
+        jLValorAtraso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLComissaoAtrasada.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLComissaoAtrasada.setText("Valor");
+        jLComissaoAtrasada.setText("Comissão:");
+        jLComissaoAtrasada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanelAtrasadasLayout = new javax.swing.GroupLayout(jPanelAtrasadas);
         jPanelAtrasadas.setLayout(jPanelAtrasadasLayout);
@@ -627,21 +458,12 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             .addGroup(jPanelAtrasadasLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jScrollPaneParcelasAtrasadas, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addGroup(jPanelAtrasadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelAtrasadasLayout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLQtdAtrasada, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelAtrasadasLayout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLValorAtraso, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelAtrasadasLayout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLComissaoAtrasada, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0))
+                .addGap(10, 10, 10)
+                .addGroup(jPanelAtrasadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLQtdAtrasada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLValorAtraso, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                    .addComponent(jLComissaoAtrasada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelAtrasadasLayout.setVerticalGroup(
             jPanelAtrasadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -649,22 +471,64 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanelAtrasadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAtrasadasLayout.createSequentialGroup()
-                        .addGroup(jPanelAtrasadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel20)
-                            .addComponent(jLQtdAtrasada))
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanelAtrasadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(jLValorAtraso))
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanelAtrasadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
-                            .addComponent(jLComissaoAtrasada)))
-                    .addComponent(jScrollPaneParcelasAtrasadas))
+                        .addComponent(jLQtdAtrasada)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLValorAtraso)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLComissaoAtrasada))
+                    .addComponent(jScrollPaneParcelasAtrasadas, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
 
         jTabbedPane1.addTab("Parcelas atrasadas", jPanelAtrasadas);
+
+        jPanelRecebidas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jScrollPaneParcelasRecebidas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScrollPaneParcelasRecebidas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        jLQtdParcelaRecebida.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLQtdParcelaRecebida.setText("Qtd Parcelas:");
+        jLQtdParcelaRecebida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLValorRecebido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLValorRecebido.setText("Valor recebido:");
+        jLValorRecebido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLComissaoRecebida.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLComissaoRecebida.setText("Comissão:");
+        jLComissaoRecebida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanelRecebidasLayout = new javax.swing.GroupLayout(jPanelRecebidas);
+        jPanelRecebidas.setLayout(jPanelRecebidasLayout);
+        jPanelRecebidasLayout.setHorizontalGroup(
+            jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRecebidasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPaneParcelasRecebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLComissaoRecebida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLQtdParcelaRecebida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLValorRecebido, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)))
+        );
+        jPanelRecebidasLayout.setVerticalGroup(
+            jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRecebidasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelRecebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRecebidasLayout.createSequentialGroup()
+                        .addComponent(jLQtdParcelaRecebida)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLValorRecebido)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLComissaoRecebida)
+                        .addGap(0, 318, Short.MAX_VALUE))
+                    .addComponent(jScrollPaneParcelasRecebidas))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Parcelas recebidas", jPanelRecebidas);
 
         jTabbedPaneEmprestimo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTabbedPaneEmprestimo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -692,8 +556,9 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                                     .addComponent(jTdataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jListColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(241, 241, 241))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTabbedPaneParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -727,7 +592,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jTabbedPaneParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTabbedPaneEmprestimo, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(25, 25, 25))
         );
@@ -768,14 +633,14 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTNomeKeyPressed
 
     private void jTabbedPaneParcelasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPaneParcelasStateChanged
-                // Obter o índice da aba selecionada
-                int indiceAbaSelecionada = jTabbedPaneParcelas.getSelectedIndex();
+        // Obter o índice da aba selecionada
+        int indiceAbaSelecionada = jTabbedPaneParcelas.getSelectedIndex();
 
-                // Obter o título da aba selecionada
-                String tituloAbaSelecionada = jTabbedPaneParcelas.getTitleAt(indiceAbaSelecionada);
+        // Obter o título da aba selecionada
+        String tituloAbaSelecionada = jTabbedPaneParcelas.getTitleAt(indiceAbaSelecionada);
 
-                // Fazer algo com a aba selecionada
-                System.out.println("Aba selecionada: " + tituloAbaSelecionada);
+        // Fazer algo com a aba selecionada
+        System.out.println("Aba selecionada: " + tituloAbaSelecionada);
     }//GEN-LAST:event_jTabbedPaneParcelasStateChanged
 
 
@@ -799,32 +664,14 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLValorAtraso;
     private javax.swing.JLabel jLValorRecebido;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jListColaborador;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelAbertas;
     private javax.swing.JPanel jPanelAtrasadas;
     private javax.swing.JPanel jPanelRecebidas;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPaneEmprestimos;
     private javax.swing.JScrollPane jScrollPaneParcelasAbertas;
     private javax.swing.JScrollPane jScrollPaneParcelasAtrasadas;
@@ -835,6 +682,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPaneParcelas;
     private com.toedter.calendar.JDateChooser jTdataFinal;
     private com.toedter.calendar.JDateChooser jTdataInicial;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 
     private void buscarRelatorio() {
@@ -859,7 +707,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
                 calcular();
             } else {
                 JOptionPane.showMessageDialog(null, "NENHUMA VENDA REGISTRADA NESSE PERÍODO", "VENDA NÃO ENCONTRADA", WIDTH);
-            
+
             }
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException | NoSuchFieldException ex) {
             Logger.getLogger(GanhosColaborador.class.getName()).log(Level.SEVERE, null, ex);
@@ -871,7 +719,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         try {
             emprestimos = Repository.getInstance().buscarEmprestimoPorColaborador(colaborador);
             jBTEmprestimos.removeAll();
-            
+
             if (emprestimos != null) {
 
                 jBTEmprestimos.removeAll();
@@ -953,7 +801,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         for (Rm_Emprestimo emprestimo : emprestimos) {
             totalVendido += emprestimo.getValorEmprestimo();
         }
-        jLTotalEmprestimo.setText(format.formatarMoeda(totalVendido));
+        jLTotalEmprestimo.setText("R$ - Empréstimos: "+format.formatarMoeda(totalVendido));
     }
 
     private void calcularTotalParcelas() {
@@ -963,23 +811,23 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         for (Rm_Parcela parcelaRecebida : parcelasRebidas) {
             totalRecebida += parcelaRecebida.getValorRecebido();
         }
-        jLTotalParcelaRecebida.setText(format.formatarMoeda(totalRecebida));
+        jLTotalParcelaRecebida.setText("R$ - Parcelas Recebidas: "+format.formatarMoeda(totalRecebida));
 
         for (Rm_Parcela parcelaAtraso : parcelasAtrasadas) {
             totalAtrasado += parcelaAtraso.getValor();
         }
-        jLTotalParcelaAtraso.setText(format.formatarMoeda(totalAtrasado));
+        jLTotalParcelaAtraso.setText("R$ - Parcelas atrasadas: "+format.formatarMoeda(totalAtrasado));
 
         for (Rm_Parcela parcelaAberta : parcelasEmAberto) {
             totalAberto += parcelaAberta.getValor();
         }
-        jLTotalParcelaAberta.setText(format.formatarMoeda(totalAberto));
+        jLTotalParcelaAberta.setText("R$ - Parcelas em Aberto: "+format.formatarMoeda(totalAberto));
 
     }
 
     private void calcularSaldosColaborador() {
         double ganhoComissao = 0d;
-        double totalReceber = 0d;
+        
         double parcialComissaoAtrasada = 0d;
         double parcialComissaoAberto = 0d;
 
@@ -987,7 +835,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         for (Rm_Emprestimo emp : emprestimos) {
             if (colaborador.getPorcentagemComissao() > 0) {
                 for (Rm_Parcela p : parcelasRebidas) {
-                    if (emp.getId() == p.getEmprestimo().getId()) {
+                    if (Objects.equals(emp.getId(), p.getEmprestimo().getId())) {
                         ganhoComissao += p.getValorRecebido();
                     }
 
@@ -999,13 +847,13 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         for (Rm_Emprestimo emp : emprestimos) {
             if (colaborador.getPorcentagemComissao() > 0) {
                 for (Rm_Parcela p : parcelasAtrasadas) {
-                    if (emp.getId() == p.getEmprestimo().getId()) {
+                    if (Objects.equals(emp.getId(), p.getEmprestimo().getId())) {
                         parcialComissaoAtrasada += p.getValor();
                     }
 
                 }
                 for (Rm_Parcela p : parcelasEmAberto) {
-                    if (emp.getId() == p.getEmprestimo().getId()) {
+                    if (Objects.equals(emp.getId(), p.getEmprestimo().getId())) {
                         parcialComissaoAberto += p.getValor();
                     }
 
@@ -1017,16 +865,13 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         parcialComissaoAberto = parcialComissaoAberto * (colaborador.getPorcentagemComissao() / 100);
         ganhoComissao = ganhoComissao * (colaborador.getPorcentagemComissao() / 100);
 
-        jLTotalaReceber.setText(format.formatarMoeda(ganhoComissao + colaborador.getSalario()));
-        jLTotalAberto.setText(format.formatarMoeda(parcialComissaoAberto + parcialComissaoAtrasada));
-        jLTotalRecebida.setText(format.formatarMoeda(ganhoComissao));
+        jLTotalaReceber.setText("R$ - Saldo (SB + Comissão): "+format.formatarMoeda(ganhoComissao + colaborador.getSalario()));
+        jLTotalAberto.setText("R$ - Comissão em aberto: "+format.formatarMoeda(parcialComissaoAberto + parcialComissaoAtrasada));
+        jLTotalRecebida.setText("R$ - Comissão Recebida: "+format.formatarMoeda(ganhoComissao));
     }
 
     private void calculoIndividual() {
         double ganhoComissao = 0d;
-        double totalRecebido = 0d;
-        double totalAberto = 0d;
-        double totalAtrasado = 0d;
         double parcialComissaoAtrasada = 0d;
         double parcialComissaoAberto = 0d;
 
@@ -1034,7 +879,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         for (Rm_Emprestimo emp : emprestimos) {
             if (colaborador.getPorcentagemComissao() > 0) {
                 for (Rm_Parcela p : parcelasRebidas) {
-                    if (emp.getId() == p.getEmprestimo().getId()) {
+                    if (Objects.equals(emp.getId(), p.getEmprestimo().getId())) {
                         ganhoComissao += p.getValorRecebido();
                     }
 
@@ -1046,13 +891,13 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         for (Rm_Emprestimo emp : emprestimos) {
             if (colaborador.getPorcentagemComissao() > 0) {
                 for (Rm_Parcela p : parcelasAtrasadas) {
-                    if (emp.getId() == p.getEmprestimo().getId()) {
+                    if (Objects.equals(emp.getId(), p.getEmprestimo().getId())) {
                         parcialComissaoAtrasada += p.getValor();
                     }
 
                 }
                 for (Rm_Parcela p : parcelasEmAberto) {
-                    if (emp.getId() == p.getEmprestimo().getId()) {
+                    if (Objects.equals(emp.getId(), p.getEmprestimo().getId())) {
                         parcialComissaoAberto += p.getValor();
                     }
 
@@ -1061,17 +906,17 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             }
         }
 
-        jLComissaoAtrasada.setText(format.formatarMoeda(parcialComissaoAtrasada * (colaborador.getPorcentagemComissao() / 100)));
-        jLComissaoAberta.setText(format.formatarMoeda(parcialComissaoAberto * (colaborador.getPorcentagemComissao() / 100)));
-        jLComissaoRecebida.setText(format.formatarMoeda(ganhoComissao * (colaborador.getPorcentagemComissao() / 100)));
+        jLComissaoAtrasada.setText("Comissão: "+format.formatarMoeda(parcialComissaoAtrasada * (colaborador.getPorcentagemComissao() / 100)));
+        jLComissaoAberta.setText("Comissão: "+format.formatarMoeda(parcialComissaoAberto * (colaborador.getPorcentagemComissao() / 100)));
+        jLComissaoRecebida.setText("Comissão: "+format.formatarMoeda(ganhoComissao * (colaborador.getPorcentagemComissao() / 100)));
 
-        jLValorRecebido.setText(format.formatarMoeda(ganhoComissao));
-        jLValorAtraso.setText(format.formatarMoeda(parcialComissaoAtrasada));
-        jLValorAberta.setText(format.formatarMoeda(parcialComissaoAberto));
+        jLValorRecebido.setText("Valor recebido: "+format.formatarMoeda(ganhoComissao));
+        jLValorAtraso.setText("Valor em atraso: "+format.formatarMoeda(parcialComissaoAtrasada));
+        jLValorAberta.setText("Valor aberto: "+format.formatarMoeda(parcialComissaoAberto));
 
-        jLQtdParcelaRecebida.setText(String.valueOf(parcelasRebidas.size()));
-        jLQtdAtrasada.setText(String.valueOf(parcelasAtrasadas.size()));
-        jLQtdAberta.setText(String.valueOf(parcelasEmAberto.size()));
+        jLQtdParcelaRecebida.setText("Qtd Parcelas: "+String.valueOf(parcelasRebidas.size()));
+        jLQtdAtrasada.setText("Qtd Parcelas: "+String.valueOf(parcelasAtrasadas.size()));
+        jLQtdAberta.setText("Qtd Parcelas: "+String.valueOf(parcelasEmAberto.size()));
 
     }
 
@@ -1084,8 +929,9 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
             parcelasEmAberto.clear();
             parcelasAtrasadas.clear();
             parcelasRebidas.clear();
-            emprestimos.clear();
-
+            if (!emprestimos.isEmpty()) {
+                emprestimos.clear();
+            }
             jBTParcelasAtrasadas.setModeloDeDados(new ArrayList(parcelasAtrasadas));
             jBTParcelasEmAberto.setModeloDeDados(new ArrayList(parcelasEmAberto));
             jBTParcelasRebidas.setModeloDeDados(new ArrayList(parcelasRebidas));
