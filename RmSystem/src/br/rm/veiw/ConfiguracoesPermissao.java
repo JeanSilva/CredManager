@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +29,7 @@ public class ConfiguracoesPermissao extends javax.swing.JInternalFrame {
     public ConfiguracoesPermissao() {
         initComponents();
         buscarTodosColaborador();
-
+          setFrameIcon(new ImageIcon(getClass().getResource("/icons/config.png")));
         comboBoxColaborador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

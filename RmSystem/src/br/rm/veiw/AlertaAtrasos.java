@@ -6,6 +6,7 @@ package br.rm.veiw;
 
 import br.rm.modelo.Rm_Cliente;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,7 +21,7 @@ public class AlertaAtrasos extends javax.swing.JInternalFrame {
         initComponents();
         this.clientes = clientes;
         inserirClienteAtraso();
-       
+       setFrameIcon(new ImageIcon(getClass().getResource("/icons/bell.png"))); 
        
     
     }

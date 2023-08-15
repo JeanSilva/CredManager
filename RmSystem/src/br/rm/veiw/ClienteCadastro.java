@@ -41,7 +41,8 @@ public class ClienteCadastro extends javax.swing.JInternalFrame {
         modelo = new DefaultListModel();
         jListCliente.setModel(modelo);
         this.colaborador = colaborador;
-        setFrameIcon(new ImageIcon("icons/usuario.png"));
+        setFrameIcon(new ImageIcon(getClass().getResource("/icons/usuario.png")));
+
     }
 
     /**

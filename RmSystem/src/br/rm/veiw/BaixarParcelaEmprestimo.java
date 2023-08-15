@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -55,6 +56,7 @@ public class BaixarParcelaEmprestimo extends javax.swing.JInternalFrame {
         jListCliente.setModel(modelo);
         criarTabelaParcelas();
         criarTabelaEmprestimos();
+        setFrameIcon(new ImageIcon(getClass().getResource("/icons/stats.png")));
     }
 
     /**

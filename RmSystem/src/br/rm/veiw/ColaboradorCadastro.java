@@ -38,8 +38,8 @@ public class ColaboradorCadastro extends javax.swing.JInternalFrame {
         jListColaborador.setVisible(false);
         modelo = new DefaultListModel();
         jListColaborador.setModel(modelo);
-        setFrameIcon(new ImageIcon("icons/colaborador.png"));
-
+        
+        setFrameIcon(new ImageIcon(getClass().getResource("/icons/colaborador.png")));
     }
 
     /**

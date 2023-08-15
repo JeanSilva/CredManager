@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.xml.crypto.Data;
 
 /**
  *
@@ -49,6 +49,7 @@ public class Cobrancas extends javax.swing.JInternalFrame {
 
         format = new FormatacaoMoeda();
         buscarTodosColaborador();
+         setFrameIcon(new ImageIcon(getClass().getResource("/icons/bank.png"))); 
         comboBoxColaborador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -281,8 +282,11 @@ public class Cobrancas extends javax.swing.JInternalFrame {
                 }
                 emprestimo.setParcela(parcelasMantidas);
             }
-
-            listar(emprestimosACobrar);
+            if (!emprestimosACobrar.isEmpty()) {
+                listar(emprestimosACobrar);
+            } else {
+                JOptionPane.showMessageDialog(null, "NENHUMA COBRANÇA ENCONTRADA", "ALERTA", WIDTH);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "NENHUMA COBRANÇA ENCONTRADA", "ALERTA", WIDTH);
             clienteAtrasado = new StringBuilder();

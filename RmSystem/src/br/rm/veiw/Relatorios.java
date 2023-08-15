@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,6 +53,7 @@ public class Relatorios extends javax.swing.JInternalFrame {
         parcelasRebidas = new ArrayList<>();
         parcelasGeral = new ArrayList<>();
         format = new FormatacaoMoeda();
+         setFrameIcon(new ImageIcon(getClass().getResource("/icons/report.png"))); 
     }
 
     /**

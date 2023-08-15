@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -90,6 +91,8 @@ public class BuscaEmprestimo extends javax.swing.JInternalFrame {
         criarTabelaParcelaPagaRecalculo();
         criarTabelaNovasParcelas();
         jTabbedPrincipal.setEnabledAt(1, false);
+           setFrameIcon(new ImageIcon(getClass().getResource("/icons/search-alt.png")));
+
     }
 
     private void criarTabelaEmprestimos() {

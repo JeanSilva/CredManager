@@ -24,6 +24,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -67,6 +68,7 @@ public class GanhosColaborador extends javax.swing.JInternalFrame {
         parcelasEmAberto = new ArrayList<>();
         parcelasRebidas = new ArrayList<>();
         format = new FormatacaoMoeda();
+        setFrameIcon(new ImageIcon(getClass().getResource("/icons/coins.png"))); 
     }
 
     private void criarTabelaEmprestimos() {
